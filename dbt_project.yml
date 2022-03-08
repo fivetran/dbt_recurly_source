@@ -1,0 +1,25 @@
+config-version: 2
+
+name: "recurly_source"
+version: "0.1.0"
+require-dbt-version: [">=1.0.0", "<2.0.0"]
+
+models:
+  recurly_source:
+    materialized: table
+    +schema: stg_recurly
+    tmp:
+      materialized: view
+
+vars:
+  recurly_source:
+    account_history: "{{ source('recurly', 'account_history') }}"
+    billing_info_history: "{{ source('recurly', 'billing_info_history') }}"
+    invoice_history: "{{ source('recurly', 'invoice_history') }}"
+    invoice_subscription_history: "{{ source('recurly', 'invoice_subscription_history') }}"
+    line_item_history: "{{ source('recurly', 'line_item_history') }}"
+    plan_history: "{{ source('recurly', 'plan_history') }}"
+    plan_currency_history: "{{ source('recurly', 'plan_currency_history') }}"
+    subscription_history: "{{ source('recurly', 'subscription_history') }}"
+    transaction: "{{ source('recurly', 'transaction') }}"
+    transaction_subscription: "{{ source('recurly', 'transaction_subscription') }}"
