@@ -1,15 +1,7 @@
-config-version: 2
-
 name: "recurly_source"
 version: "0.1.0"
+config-version: 2
 require-dbt-version: [">=1.0.0", "<2.0.0"]
-
-models:
-  recurly_source:
-    materialized: table
-    +schema: stg_recurly
-    tmp:
-      materialized: view
 
 vars:
   recurly_source:
@@ -23,3 +15,11 @@ vars:
     subscription_history: "{{ source('recurly', 'subscription_history') }}"
     transaction: "{{ source('recurly', 'transaction') }}"
     transaction_subscription: "{{ source('recurly', 'transaction_subscription') }}"
+
+
+models:
+  recurly_source:
+    +schema: recurly_source
+    materialized: table
+    tmp:
+      materialized: view

@@ -1,10 +1,9 @@
 version: 2
 sources:
   - name: recurly
-    database: "{{var ('recurly_database', target.database)}}"
     schema: "{{var ('recurly_schema', 'recurly')}}"
-
-    loader: fivetran
+    database: "{{var ('recurly_database', target.database)}}"
+    loader: Fivetran
     loaded_at_field: _fivetran_synced
 
     freshness:
@@ -571,7 +570,7 @@ sources:
         description: Plan prices
         columns:
           - name: plan_id
-            description: plan_id
+            description: The id of the plan. 
           - name: plan_updated_at
             description: plan_updated_at
           - name: currency
