@@ -41,7 +41,7 @@
     {"name": "payment_gateway_id", "datatype": dbt_utils.type_string()},
     {"name": "payment_gateway_type", "datatype": dbt_utils.type_string()},
     {"name": "payment_gateway_name", "datatype": dbt_utils.type_timestamp()},
-    {"name": "gateway_response_values", "datatype": dbt_utils.type_string()},
+    {"name": "gateway_response_values", "datatype": dbt_utils.type_string()}
 ] %}
 
 {{ return(columns) }}

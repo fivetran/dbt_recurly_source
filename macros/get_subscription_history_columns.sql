@@ -34,7 +34,7 @@
     {"name": "expiration_reason", "datatype": dbt_utils.type_string()},
     {"name": "started_with_gift", "datatype": "boolean"},
     {"name": "converted_at", "datatype": dbt_utils.type_timestamp()},
-    {"name": "custom_coupon_code", "datatype": dbt_utils.type_string()},
+    {"name": "custom_coupon_code", "datatype": dbt_utils.type_string()}
 ] %}
 
 {{ return(columns) }}

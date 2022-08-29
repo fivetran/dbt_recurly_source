@@ -39,7 +39,7 @@
     {"name": "refund_quantity", "datatype": dbt_utils.type_int()},
     {"name": "credit_applied", "datatype": dbt_utils.type_float()},
     {"name": "start_date", "datatype": dbt_utils.type_timestamp()},
-    {"name": "end_date", "datatype": dbt_utils.type_timestamp()},
+    {"name": "end_date", "datatype": dbt_utils.type_timestamp()}
 ] %}
 
 {{ return(columns) }}

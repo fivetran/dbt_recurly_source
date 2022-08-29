@@ -10,7 +10,7 @@ This package models Recurly data from [Fivetran's connector](https://fivetran.co
   - Name columns for consistency across all packages and easier analysis
   - Adds freshness tests to source data
   - Adds column-level testing where applicable. For example,  all primary keys are tested for uniqueness and non-null values.
-- Generates a comprehensive data dictionary of your Google Play data through the [dbt docs site](https://fivetran.github.io/dbt_recurly_source/).
+- Generates a comprehensive data dictionary of your Recurly data through the [dbt docs site](https://fivetran.github.io/dbt_recurly_source/).
 - These tables are designed to work simultaneously with our [Recurly transformation package](https://github.com/fivetran/dbt_recurly)
 
 # 🎯 How do I use the dbt package?
@@ -21,7 +21,7 @@ To use this dbt package, you must have the following:
 
 
 ## Step 2: Install the package
-Include the following google_play_source package version in your `packages.yml` file.
+Include the following recurly_source package version in your `packages.yml` file.
 > TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 ```yaml
 packages:
@@ -55,7 +55,7 @@ vars:
 <details><summary>Expand to view configurations</summary>
 
 ### Change the build schema
-By default, this package builds the google_play staging models within a schema titled (`<target_schema>` + `_recurly_source`) in your destination. If this is not where you would like your recurly staging data to be written to, add the following configuration to your root `dbt_project.yml` file:
+By default, this package builds the recurly staging models within a schema titled (`<target_schema>` + `_recurly_source`) in your destination. If this is not where you would like your recurly staging data to be written to, add the following configuration to your root `dbt_project.yml` file:
 
 ```yml
 models:

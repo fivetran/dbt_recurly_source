@@ -56,7 +56,7 @@ models:
       - name: tax_exempt
         description: The tax status of the account. true exempts tax on the account, false applies tax on the account.
 
-  - name: stg_recurly__billing__info_history
+  - name: stg_recurly__billing_info_history
     columns:
       - name: billing_id
       - name: created_at
@@ -580,444 +580,444 @@ models:
       - name: subscription_id
         description: The id of the subscription associated with the transaction.
 
-  - name: stg_recurly__account_latest
-    description: >
-      The account object stores the latest Recurly status of your customer and 
-      acts as the entry point for working with a customer's billing information, subscription data, transactions, invoices and more. 
-      Once an account is created, all values (with the exception of the account code) may be updated.
-    columns:
-      - name: account_id
-        description: Uniquely identifies your customers in Recurly. No two customers can share the same account id. Part of the PK
-        tests:
-          - not_null
-      - name: created_at
-        description: When the account was created.
-        tests:
-          - not_null
-      - name: updated_at
-        description: When the account was last changed. Part of the PK
-        tests:
-          - not_null
-      - name: deleted_at
-        description: If present, when the account was last marked inactive.
-      - name: code
-        description: >
-          The unique identifier of the account. This cannot be changed once the account is created. 
-          Provided during account creation.
-        tests:
-          - not_null
-      - name: bill_to
-        description: >
-          An enumerable describing the billing behavior of the account, 
-          specifically whether the account is self-paying or will rely on the parent account to pay.
-      - name: account_state
-        description: Accounts can be either active or inactive.
-      - name: username
-        description: A secondary value for the account.
-      - name: first_name
-        description: The first name of the customer related to the account.
-      - name: last_name
-        description: The last name of the customer related to the account.
-      - name: email
-        description: >
-          The email address used for communicating with this customer. 
-          The customer will also use this email address to log into your hosted account management pages. 
-          This value does not need to be unique.
-      - name: cc_emails
-        description: >
-          Additional email address that should receive account correspondence. 
-          These should be separated only by commas. 
-          These CC emails will receive all emails that the email field also receives.
-      - name: company
-        description: The company related with the account.
-      - name: vat_number
-        description: The VAT number of the account (to avoid having the VAT applied). This is only used for manually collected invoices.
-      - name: tax_exempt
-        description: The tax status of the account. true exempts tax on the account, false applies tax on the account.
+  # - name: stg_recurly__account_latest
+  #   description: >
+  #     The account object stores the latest Recurly status of your customer and 
+  #     acts as the entry point for working with a customer's billing information, subscription data, transactions, invoices and more. 
+  #     Once an account is created, all values (with the exception of the account code) may be updated.
+  #   columns:
+  #     - name: account_id
+  #       description: Uniquely identifies your customers in Recurly. No two customers can share the same account id. Part of the PK
+  #       tests:
+  #         - not_null
+  #     - name: created_at
+  #       description: When the account was created.
+  #       tests:
+  #         - not_null
+  #     - name: updated_at
+  #       description: When the account was last changed. Part of the PK
+  #       tests:
+  #         - not_null
+  #     - name: deleted_at
+  #       description: If present, when the account was last marked inactive.
+  #     - name: code
+  #       description: >
+  #         The unique identifier of the account. This cannot be changed once the account is created. 
+  #         Provided during account creation.
+  #       tests:
+  #         - not_null
+  #     - name: bill_to
+  #       description: >
+  #         An enumerable describing the billing behavior of the account, 
+  #         specifically whether the account is self-paying or will rely on the parent account to pay.
+  #     - name: account_state
+  #       description: Accounts can be either active or inactive.
+  #     - name: username
+  #       description: A secondary value for the account.
+  #     - name: first_name
+  #       description: The first name of the customer related to the account.
+  #     - name: last_name
+  #       description: The last name of the customer related to the account.
+  #     - name: email
+  #       description: >
+  #         The email address used for communicating with this customer. 
+  #         The customer will also use this email address to log into your hosted account management pages. 
+  #         This value does not need to be unique.
+  #     - name: cc_emails
+  #       description: >
+  #         Additional email address that should receive account correspondence. 
+  #         These should be separated only by commas. 
+  #         These CC emails will receive all emails that the email field also receives.
+  #     - name: company
+  #       description: The company related with the account.
+  #     - name: vat_number
+  #       description: The VAT number of the account (to avoid having the VAT applied). This is only used for manually collected invoices.
+  #     - name: tax_exempt
+  #       description: The tax status of the account. true exempts tax on the account, false applies tax on the account.
 
-  - name: stg_recurly__invoice_latest
-    description: >
-      An invoice relates charges, credits, and payments together. 
-      When a subscription is created or renewed or a charge is created on the account, 
-      Recurly will sum the charges, discount or tax as appropriate, and send the invoice out for collection. 
-      The table holds the latest status of the invoice.
-    columns:
-      - name: invoice_id
-        description: Unique identifier for the object.
-        tests:
-          - not_null
-      - name: created_at
-        description: When the invoice was created.
-        tests:
-          - not_null
-      - name: updated_at
-        description: When the invoice was updated.
-        tests:
-          - not_null
-      - name: due_at
-        description: Date invoice is due. This is the date the net terms are reached.
-      - name: closed_at
-        description: Date invoice was marked paid or failed.
-      - name: account_id
-        description: The account this invoice belongs to.
-        tests:
-          - not_null
-      - name: previous_invoice_id
-        description: On refund invoices, this value will exist and show the invoice ID of the purchase invoice the refund was created from.
-      - name: type
-        description: Invoices are either "charge", "credit", or "legacy" invoices.
-      - name: origin
-        description: >
-          The event that created the invoice.
-          Enum: "credit", "gift_card", "immediate_change", "line_item_refund", "open_amount_refund", 
-          "purchase", "renewal", "termination", "write_off", "prepayment".
-      - name: status
-        description: >
-          The invoice status. 
-          Enum: "open", "pending", "processing", "past_due", "paid", "closed", "failed", "voided"
-      - name: number
-        description: >
-          If VAT taxation and the Country Invoice Sequencing feature are enabled, 
-          invoices will have country-specific invoice numbers for invoices billed to EU countries (e.g. FR1001). 
-          Non-EU invoices will continue to use the site-level invoice number sequence.
-        tests:
-          - not_null
-      - name: collection_method
-        description: >
-          An automatic invoice means a corresponding transaction is run using the account's billing information 
-          at the same time the invoice is created. Manual invoices are created without a corresponding transaction. 
-          The merchant must enter a manual payment transaction or have the customer pay the invoice with an automatic method, 
-          like credit card, PayPal, Amazon, or ACH bank payment.
-          Default: "automatic"
-          Enum: "automatic", "manual"
-      - name: po_number
-        description: For manual invoicing, this identifies the PO number associated with the subscription.
-      - name: net_terms
-        description: >
-          Integer representing the number of days after an invoice's creation that the invoice will become past due. 
-          If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. 
-          If an invoice is due net 30, it will become past due at 31 days exactly.
-          Default: 0
-      - name: currency
-        description: 3-letter ISO 4217 currency code.
-      - name: balance
-        description: The outstanding balance remaining on this invoice.
-        tests:
-          - not_null
-      - name: amount_paid
-        description: The total amount of successful payments transaction on this invoice.
-        tests:
-          - not_null
-      - name: refundable_amount
-        description: The refundable amount on a charge invoice. It will be null for all other invoices.
-      - name: discount
-        description: Total discounts applied to this invoice.
-        tests:
-          - not_null
-      - name: total
-        description: >
-          The final total on this invoice. The summation of invoice charges, discounts, credits, and tax.
-          Alternative the summation of subtotal and tax.
-        tests:
-          - not_null
-      - name: subtotal
-        description: The summation of charges, discounts, and credits, before tax.
-        tests:
-          - not_null
-      - name: tax
-        description: The total tax on this invoice.
-        tests:
-          - not_null
-      - name: tax_type
-        description: >
-          Provides the tax type as "vat" for EU VAT, "usst" for U.S. Sales Tax, 
-          or the 2 letter country code for country level tax types like Canada, Australia, New Zealand, Israel, and all non-EU European countries.
-      - name: tax_region
-        description: >
-          Provides the tax region applied on an invoice. For U.S. Sales Tax, 
-          this will be the 2 letter state code. 
-          For EU VAT this will be the 2 letter country code. 
-          For all country level tax types, this will display the regional tax, like VAT, GST, or PST.
-      - name: tax_rate
-        description: The rate of the tax.
+  # - name: stg_recurly__invoice_latest
+  #   description: >
+  #     An invoice relates charges, credits, and payments together. 
+  #     When a subscription is created or renewed or a charge is created on the account, 
+  #     Recurly will sum the charges, discount or tax as appropriate, and send the invoice out for collection. 
+  #     The table holds the latest status of the invoice.
+  #   columns:
+  #     - name: invoice_id
+  #       description: Unique identifier for the object.
+  #       tests:
+  #         - not_null
+  #     - name: created_at
+  #       description: When the invoice was created.
+  #       tests:
+  #         - not_null
+  #     - name: updated_at
+  #       description: When the invoice was updated.
+  #       tests:
+  #         - not_null
+  #     - name: due_at
+  #       description: Date invoice is due. This is the date the net terms are reached.
+  #     - name: closed_at
+  #       description: Date invoice was marked paid or failed.
+  #     - name: account_id
+  #       description: The account this invoice belongs to.
+  #       tests:
+  #         - not_null
+  #     - name: previous_invoice_id
+  #       description: On refund invoices, this value will exist and show the invoice ID of the purchase invoice the refund was created from.
+  #     - name: type
+  #       description: Invoices are either "charge", "credit", or "legacy" invoices.
+  #     - name: origin
+  #       description: >
+  #         The event that created the invoice.
+  #         Enum: "credit", "gift_card", "immediate_change", "line_item_refund", "open_amount_refund", 
+  #         "purchase", "renewal", "termination", "write_off", "prepayment".
+  #     - name: status
+  #       description: >
+  #         The invoice status. 
+  #         Enum: "open", "pending", "processing", "past_due", "paid", "closed", "failed", "voided"
+  #     - name: number
+  #       description: >
+  #         If VAT taxation and the Country Invoice Sequencing feature are enabled, 
+  #         invoices will have country-specific invoice numbers for invoices billed to EU countries (e.g. FR1001). 
+  #         Non-EU invoices will continue to use the site-level invoice number sequence.
+  #       tests:
+  #         - not_null
+  #     - name: collection_method
+  #       description: >
+  #         An automatic invoice means a corresponding transaction is run using the account's billing information 
+  #         at the same time the invoice is created. Manual invoices are created without a corresponding transaction. 
+  #         The merchant must enter a manual payment transaction or have the customer pay the invoice with an automatic method, 
+  #         like credit card, PayPal, Amazon, or ACH bank payment.
+  #         Default: "automatic"
+  #         Enum: "automatic", "manual"
+  #     - name: po_number
+  #       description: For manual invoicing, this identifies the PO number associated with the subscription.
+  #     - name: net_terms
+  #       description: >
+  #         Integer representing the number of days after an invoice's creation that the invoice will become past due. 
+  #         If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. 
+  #         If an invoice is due net 30, it will become past due at 31 days exactly.
+  #         Default: 0
+  #     - name: currency
+  #       description: 3-letter ISO 4217 currency code.
+  #     - name: balance
+  #       description: The outstanding balance remaining on this invoice.
+  #       tests:
+  #         - not_null
+  #     - name: amount_paid
+  #       description: The total amount of successful payments transaction on this invoice.
+  #       tests:
+  #         - not_null
+  #     - name: refundable_amount
+  #       description: The refundable amount on a charge invoice. It will be null for all other invoices.
+  #     - name: discount
+  #       description: Total discounts applied to this invoice.
+  #       tests:
+  #         - not_null
+  #     - name: total
+  #       description: >
+  #         The final total on this invoice. The summation of invoice charges, discounts, credits, and tax.
+  #         Alternative the summation of subtotal and tax.
+  #       tests:
+  #         - not_null
+  #     - name: subtotal
+  #       description: The summation of charges, discounts, and credits, before tax.
+  #       tests:
+  #         - not_null
+  #     - name: tax
+  #       description: The total tax on this invoice.
+  #       tests:
+  #         - not_null
+  #     - name: tax_type
+  #       description: >
+  #         Provides the tax type as "vat" for EU VAT, "usst" for U.S. Sales Tax, 
+  #         or the 2 letter country code for country level tax types like Canada, Australia, New Zealand, Israel, and all non-EU European countries.
+  #     - name: tax_region
+  #       description: >
+  #         Provides the tax region applied on an invoice. For U.S. Sales Tax, 
+  #         this will be the 2 letter state code. 
+  #         For EU VAT this will be the 2 letter country code. 
+  #         For all country level tax types, this will display the regional tax, like VAT, GST, or PST.
+  #     - name: tax_rate
+  #       description: The rate of the tax.
 
-  - name: stg_recurly__invoice_subscription_latest
-    description: >
-      The connection between invoices and subscription. 
-      FK on invoice are both invoice_id and invoice_updated_at, and on subscription is subscription_id.
-      The table holds the latest status of the invoice - subscription connection.
-    columns:
-      - name: invoice_id
-        description: The id of the invoice associated with the subscription.
-      - name: invoice_updated_at
-        description: When the invoice was updated.
-      - name: subscription_id
-        description: The id of the subscription associated with the invoice.
+  # - name: stg_recurly__invoice_subscription_latest
+  #   description: >
+  #     The connection between invoices and subscription. 
+  #     FK on invoice are both invoice_id and invoice_updated_at, and on subscription is subscription_id.
+  #     The table holds the latest status of the invoice - subscription connection.
+  #   columns:
+  #     - name: invoice_id
+  #       description: The id of the invoice associated with the subscription.
+  #     - name: invoice_updated_at
+  #       description: When the invoice was updated.
+  #     - name: subscription_id
+  #       description: The id of the subscription associated with the invoice.
 
-  - name: stg_recurly__line_item_latest
-    description: >
-      Line items are the charges and credits on your customer's invoices.
-      The table holds the latest status of the line item.
-    columns:
-      - name: line_item_id
-        description: Unique identifier for the object.
-        tests:
-          - not_null
-      - name: description
-        description: Description that appears on the invoice. For subscription related items this will be filled in automatically.
-      - name: created_at
-        description: When the line item was created.
-        tests:
-          - not_null
-      - name: updated_at
-        description: When the line item was updated.
-        tests:
-          - not_null
-      - name: account_id
-        description: The account this line item belongs to.
-        tests:
-          - not_null
-      - name: plan_id
-        description: If the line item is a charge or credit for a plan or add-on, this is the plan's ID.
-      - name: plan_code
-        description: If the line item is a charge or credit for a plan or add-on, this is the plan's code.
-      - name: add_on_id
-        description: If the line item is a charge or credit for an add-on this is its ID.
-      - name: add_on_code
-        description: If the line item is a charge or credit for an add-on, this is its code.
-      - name: invoice_id
-        description: The invoice this line item belongs to, once the line item has been invoiced this will be the invoice's ID.
-      - name: invoice_number
-        description: The invoice this line item belongs to, once the line item has been invoiced this will be the invoice's number.
-      - name: previous_line_item_id
-        description: >
-          Will only have a value if the line item is a credit created from a previous credit, 
-          or if the credit was created from a charge refund.
-      - name: original_line_item_invoice_id
-        description: >
-          The invoice where the credit originated. 
-          Will only have a value if the line item is a credit created from a previous credit, 
-          or if the credit was created from a charge refund.:
-      - name: subscription_id
-        description: If the line item is a charge or credit for a subscription, this is its ID.
-      - name: uuid
-        description: The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI. Used in HTB database.
-      - name: type
-        description: >
-          Charges are positive line items that debit the account. 
-          Credits are negative line items that credit the account.
-          Enum: "charge", "credit"
-      - name: status
-        description: >
-          Pending line items are charges or credits on an account that have not been applied to an invoice yet. 
-          Invoiced line items will always have an invoice_id value.
-          Enum: "invoiced", "pending"
-      - name: origin
-        description: A credit created from an original charge will have the value of the charge's origin.
-      - name: product_code
-        description: >
-          For plan-related line items this will be the plan's code, for add-on related line items it will be the add-on's code. 
-          For item-related line items it will be the item's external_sku.
-      - name: currency
-        description: 3-letter ISO 4217 currency code.
-      - name: amount
-        description: Total after discounts and taxes (quantity * unit_amount) - (discount + tax).
-      - name: quantity
-        description: This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.
-      - name: unit_amount
-        description: Positive amount for a charge, negative amount for a credit.
-      - name: subtotal
-        description: Total before discounts and taxes (quantity * unit_amount).
-      - name: discount
-        description: The discount applied to the line item.
-      - name: tax
-        description: The tax amount for the line item.
-      - name: taxable
-        description: true if the line item is taxable, false if it is not.
-      - name: tax_exempt
-        description: true exempts tax on charges, false applies tax on charges. If not defined, then defaults to the Plan and Site settings.
-      - name: tax_code
-        description: >
-          Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. 
-          If you are using Recurly’s EU VAT feature you can use unknown, physical, or digital.:
-      - name: tax_type
-        description: >
-          Provides the tax type as "vat" for EU VAT, "usst" for U.S. Sales Tax, or the 2 letter country code for country level tax types 
-          like Canada, Australia, New Zealand, Israel, and all non-EU European countries.
-      - name: tax_region
-        description: >
-          Provides the tax region applied on an invoice. 
-          For U.S. Sales Tax, this will be the 2 letter state code. 
-          For EU VAT this will be the 2 letter country code. 
-          For all country level tax types, this will display the regional tax, like VAT, GST, or PST.
-      - name: tax_rate
-        description: Tax rate
-      - name: proration_rate
-        description: >
-          When a line item has been prorated, this is the rate of the proration. 
-          Proration rates were made available for line items created after March 30, 2017. 
-          For line items created prior to that date, the proration rate will be null, even if the line item was prorated.
-      - name: refund
-        description: true if the line item is refund, false if it is not.
-      - name: refund_quantity
-        description: For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).
-      - name: credit_applied
-        description: The amount of credit from this line item that was applied to the invoice.
-      - name: started_at
-        description: >
-          If an end date is present, this is value indicates the beginning of a billing time range. 
-          If no end date is present it indicates billing for a specific date.
-      - name: ended_at
-        description: If this date is provided, it indicates the end of a time range
+  # - name: stg_recurly__line_item_latest
+  #   description: >
+  #     Line items are the charges and credits on your customer's invoices.
+  #     The table holds the latest status of the line item.
+  #   columns:
+  #     - name: line_item_id
+  #       description: Unique identifier for the object.
+  #       tests:
+  #         - not_null
+  #     - name: description
+  #       description: Description that appears on the invoice. For subscription related items this will be filled in automatically.
+  #     - name: created_at
+  #       description: When the line item was created.
+  #       tests:
+  #         - not_null
+  #     - name: updated_at
+  #       description: When the line item was updated.
+  #       tests:
+  #         - not_null
+  #     - name: account_id
+  #       description: The account this line item belongs to.
+  #       tests:
+  #         - not_null
+  #     - name: plan_id
+  #       description: If the line item is a charge or credit for a plan or add-on, this is the plan's ID.
+  #     - name: plan_code
+  #       description: If the line item is a charge or credit for a plan or add-on, this is the plan's code.
+  #     - name: add_on_id
+  #       description: If the line item is a charge or credit for an add-on this is its ID.
+  #     - name: add_on_code
+  #       description: If the line item is a charge or credit for an add-on, this is its code.
+  #     - name: invoice_id
+  #       description: The invoice this line item belongs to, once the line item has been invoiced this will be the invoice's ID.
+  #     - name: invoice_number
+  #       description: The invoice this line item belongs to, once the line item has been invoiced this will be the invoice's number.
+  #     - name: previous_line_item_id
+  #       description: >
+  #         Will only have a value if the line item is a credit created from a previous credit, 
+  #         or if the credit was created from a charge refund.
+  #     - name: original_line_item_invoice_id
+  #       description: >
+  #         The invoice where the credit originated. 
+  #         Will only have a value if the line item is a credit created from a previous credit, 
+  #         or if the credit was created from a charge refund.:
+  #     - name: subscription_id
+  #       description: If the line item is a charge or credit for a subscription, this is its ID.
+  #     - name: uuid
+  #       description: The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI. Used in HTB database.
+  #     - name: type
+  #       description: >
+  #         Charges are positive line items that debit the account. 
+  #         Credits are negative line items that credit the account.
+  #         Enum: "charge", "credit"
+  #     - name: status
+  #       description: >
+  #         Pending line items are charges or credits on an account that have not been applied to an invoice yet. 
+  #         Invoiced line items will always have an invoice_id value.
+  #         Enum: "invoiced", "pending"
+  #     - name: origin
+  #       description: A credit created from an original charge will have the value of the charge's origin.
+  #     - name: product_code
+  #       description: >
+  #         For plan-related line items this will be the plan's code, for add-on related line items it will be the add-on's code. 
+  #         For item-related line items it will be the item's external_sku.
+  #     - name: currency
+  #       description: 3-letter ISO 4217 currency code.
+  #     - name: amount
+  #       description: Total after discounts and taxes (quantity * unit_amount) - (discount + tax).
+  #     - name: quantity
+  #       description: This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.
+  #     - name: unit_amount
+  #       description: Positive amount for a charge, negative amount for a credit.
+  #     - name: subtotal
+  #       description: Total before discounts and taxes (quantity * unit_amount).
+  #     - name: discount
+  #       description: The discount applied to the line item.
+  #     - name: tax
+  #       description: The tax amount for the line item.
+  #     - name: taxable
+  #       description: true if the line item is taxable, false if it is not.
+  #     - name: tax_exempt
+  #       description: true exempts tax on charges, false applies tax on charges. If not defined, then defaults to the Plan and Site settings.
+  #     - name: tax_code
+  #       description: >
+  #         Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. 
+  #         If you are using Recurly’s EU VAT feature you can use unknown, physical, or digital.:
+  #     - name: tax_type
+  #       description: >
+  #         Provides the tax type as "vat" for EU VAT, "usst" for U.S. Sales Tax, or the 2 letter country code for country level tax types 
+  #         like Canada, Australia, New Zealand, Israel, and all non-EU European countries.
+  #     - name: tax_region
+  #       description: >
+  #         Provides the tax region applied on an invoice. 
+  #         For U.S. Sales Tax, this will be the 2 letter state code. 
+  #         For EU VAT this will be the 2 letter country code. 
+  #         For all country level tax types, this will display the regional tax, like VAT, GST, or PST.
+  #     - name: tax_rate
+  #       description: Tax rate
+  #     - name: proration_rate
+  #       description: >
+  #         When a line item has been prorated, this is the rate of the proration. 
+  #         Proration rates were made available for line items created after March 30, 2017. 
+  #         For line items created prior to that date, the proration rate will be null, even if the line item was prorated.
+  #     - name: refund
+  #       description: true if the line item is refund, false if it is not.
+  #     - name: refund_quantity
+  #       description: For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).
+  #     - name: credit_applied
+  #       description: The amount of credit from this line item that was applied to the invoice.
+  #     - name: started_at
+  #       description: >
+  #         If an end date is present, this is value indicates the beginning of a billing time range. 
+  #         If no end date is present it indicates billing for a specific date.
+  #     - name: ended_at
+  #       description: If this date is provided, it indicates the end of a time range
 
-  - name: stg_recurly__plan_latest
-    description: >
-      Plans define the base price, currency, and billing cycle for recurring purchases of products.
-      The table holds the latest status of the plan.
-    columns:
-      - name: plan_id
-        description: Unique identifier for the object.
-      - name: plan_code
-        description: Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
-      - name: plan_created_at
-        description: When the plan was created.
-      - name: plan_updated_at
-        description: When the plan was updated.
-      - name: plan_deleted_at
-        description: When the plan was deleted.
-      - name: plan_state
-        description: >
-          The current state of the plan.
-          Enum: "active", "inactive"
-      - name: plan_name
-        description: This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
-      - name: plan_description
-        description: Optional description, not displayed.
-      - name: interval_unit
-        description: >
-          Unit for the plan's billing interval.
-          Default: "months"
-          Enum: "days", "months"
-      - name: interval_length
-        description: >
-          Length of the plan's billing interval in interval_unit.
-          Default: 1
-      - name: trial_unit
-        description: >
-          Units for the plan's trial period.
-          Default: "months"
-          Enum: "days", "months"
-      - name: trial_length
-        description: >
-          Length of plan's trial period in trial_units. 0 means no trial.
-          Default: 0
-      - name: total_billing_cycles
-        description: >
-          Automatically terminate subscriptions after a defined number of billing cycles. 
-          Number of billing cycles before the plan automatically stops renewing, defaults to null for continuous, automatic renewal.
-      - name: auto_renew
-        description: >
-          Subscriptions will automatically inherit this value once they are active. 
-          If auto_renew is true, then a subscription will automatically renew its term at renewal. 
-          If auto_renew is false, then a subscription will expire at the end of its term. 
-          auto_renew can be overridden on the subscription record itself.
-          Default: true
-      - name: accounting_code
-        description: Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
-      - name: setup_fee_accounting_code
-        description: Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
-      - name: plan_tax_code
-        description: >
-          Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. 
-          If you are using Recurly’s EU VAT feature you can use unknown, physical, or digital.
-      - name: plan_tax_exempt
-        description: true exempts tax on the plan, false applies tax on the plan.
+  # - name: stg_recurly__plan_latest
+  #   description: >
+  #     Plans define the base price, currency, and billing cycle for recurring purchases of products.
+  #     The table holds the latest status of the plan.
+  #   columns:
+  #     - name: plan_id
+  #       description: Unique identifier for the object.
+  #     - name: plan_code
+  #       description: Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
+  #     - name: plan_created_at
+  #       description: When the plan was created.
+  #     - name: plan_updated_at
+  #       description: When the plan was updated.
+  #     - name: plan_deleted_at
+  #       description: When the plan was deleted.
+  #     - name: plan_state
+  #       description: >
+  #         The current state of the plan.
+  #         Enum: "active", "inactive"
+  #     - name: plan_name
+  #       description: This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
+  #     - name: plan_description
+  #       description: Optional description, not displayed.
+  #     - name: interval_unit
+  #       description: >
+  #         Unit for the plan's billing interval.
+  #         Default: "months"
+  #         Enum: "days", "months"
+  #     - name: interval_length
+  #       description: >
+  #         Length of the plan's billing interval in interval_unit.
+  #         Default: 1
+  #     - name: trial_unit
+  #       description: >
+  #         Units for the plan's trial period.
+  #         Default: "months"
+  #         Enum: "days", "months"
+  #     - name: trial_length
+  #       description: >
+  #         Length of plan's trial period in trial_units. 0 means no trial.
+  #         Default: 0
+  #     - name: total_billing_cycles
+  #       description: >
+  #         Automatically terminate subscriptions after a defined number of billing cycles. 
+  #         Number of billing cycles before the plan automatically stops renewing, defaults to null for continuous, automatic renewal.
+  #     - name: auto_renew
+  #       description: >
+  #         Subscriptions will automatically inherit this value once they are active. 
+  #         If auto_renew is true, then a subscription will automatically renew its term at renewal. 
+  #         If auto_renew is false, then a subscription will expire at the end of its term. 
+  #         auto_renew can be overridden on the subscription record itself.
+  #         Default: true
+  #     - name: accounting_code
+  #       description: Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
+  #     - name: setup_fee_accounting_code
+  #       description: Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
+  #     - name: plan_tax_code
+  #       description: >
+  #         Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. 
+  #         If you are using Recurly’s EU VAT feature you can use unknown, physical, or digital.
+  #     - name: plan_tax_exempt
+  #       description: true exempts tax on the plan, false applies tax on the plan.
 
-  - name: stg_recurly__subscription_latest
-    description: >
-      Subscriptions are created when your customers subscribe to one of your plans. 
-      The customer's subscription tells Recurly when and how much to bill the customer.
-      The table holds the latest status of the subscription.
-    columns:
-      - name: subscription_id
-        description: Unique identifier for the subscription.
-      - name: subscription_created_at
-        description: When the subscription was created.
-      - name: subscription_updated_at
-        description: When the subscription was updated.
-      - name: subscription_activated_at
-        description: When the subscription was activated.
-      - name: subscription_canceled_at
-        description: When the subscription was canceled. Can take future dates.
-      - name: subscription_expires_at
-        description: When the subscription has expired. Can take future dates.
-      - name: subscription_paused_at
-        description: When the subscription will/has paused. Can take future dates.
-      - name: subscription_converted_at
-        description: When the subscription has converted from trial.
-      - name: account_id
-        description: The account this subscription belongs to.
-      - name: plan_id
-        description: The plan this subscription belongs to.
-      - name: subscription_object
-        description: The object type, in this case only "subscription"
-      - name: subscription_uuid
-        description: The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
-      - name: subscription_state
-        description: >
-          The current state of the subscription.
-          Enum: "active", "canceled", "expired", "failed", "future", "paused"
-      - name: current_period_started_at
-        description: Current billing period started at.
-      - name: current_period_ended_at
-        description: Current billing period ends at.
-      - name: current_term_started_at
-        description: >
-          The start date of the term when the first billing period starts. 
-          The subscription term is the length of time that a customer will be committed to a subscription. 
-          A term can span multiple billing periods.
-      - name: current_term_ended_at
-        description: >
-          When the term ends. This is calculated by a plan's interval and total_billing_cycles in a term. 
-          Subscription changes with a timeframe=renewal will be applied on this date.
-      - name: trial_started_at
-        description: Trial period started at
-      - name: trial_ended_at
-        description: Trial period ends at
-      - name: remaining_billing_cycles
-        description: The remaining billing cycles in the current term.
-      - name: total_billing_cycles
-        description: >
-          The number of cycles/billing periods in a term. 
-          When remaining_billing_cycles=0, if auto_renew=true the subscription will renew and a new term will begin, 
-          otherwise the subscription will expire.
-      - name: renewal_billing_cycles
-        description: >
-          If auto_renew=true, when a term completes, total_billing_cycles takes this value as the length of subsequent terms. 
-          Defaults to the plan's total_billing_cycles.
-      - name: auto_renew
-        description: >
-          Whether the subscription renews at the end of its term.
-          Default: true
-      - name: paused_at
-        description: Null unless subscription is paused or will pause at the end of the current billing period.
-      - name: remaining_pause_cycles
-        description: Null unless subscription is paused or will pause at the end of the current billing period.
-      - name: subscription_currency
-        description: 3-letter ISO 4217 currency code.
-      - name: subscription_unit_amount
-        description: Subscription unit price
-      - name: subscription_subtotal
-        description: Estimated total, before tax.
-      - name: subscription_quantity
-        description: Subscription quantity. Greater or equal to 0.
-      - name: add_ons_total
-        description: Total price of add-ons. Greater or equal to 0.
-      - name: subscription_collection_method
-        description: >
-          Default: "automatic"
-          Enum: "automatic", "manual"
-      - name: subscription_expiration_reason
-        description: Expiration reason.
-      - name: subscription_custom_coupon_code
-        description: Coupon code used for subscription.
+  # - name: stg_recurly__subscription_latest
+  #   description: >
+  #     Subscriptions are created when your customers subscribe to one of your plans. 
+  #     The customer's subscription tells Recurly when and how much to bill the customer.
+  #     The table holds the latest status of the subscription.
+  #   columns:
+  #     - name: subscription_id
+  #       description: Unique identifier for the subscription.
+  #     - name: subscription_created_at
+  #       description: When the subscription was created.
+  #     - name: subscription_updated_at
+  #       description: When the subscription was updated.
+  #     - name: subscription_activated_at
+  #       description: When the subscription was activated.
+  #     - name: subscription_canceled_at
+  #       description: When the subscription was canceled. Can take future dates.
+  #     - name: subscription_expires_at
+  #       description: When the subscription has expired. Can take future dates.
+  #     - name: subscription_paused_at
+  #       description: When the subscription will/has paused. Can take future dates.
+  #     - name: subscription_converted_at
+  #       description: When the subscription has converted from trial.
+  #     - name: account_id
+  #       description: The account this subscription belongs to.
+  #     - name: plan_id
+  #       description: The plan this subscription belongs to.
+  #     - name: subscription_object
+  #       description: The object type, in this case only "subscription"
+  #     - name: subscription_uuid
+  #       description: The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
+  #     - name: subscription_state
+  #       description: >
+  #         The current state of the subscription.
+  #         Enum: "active", "canceled", "expired", "failed", "future", "paused"
+  #     - name: current_period_started_at
+  #       description: Current billing period started at.
+  #     - name: current_period_ended_at
+  #       description: Current billing period ends at.
+  #     - name: current_term_started_at
+  #       description: >
+  #         The start date of the term when the first billing period starts. 
+  #         The subscription term is the length of time that a customer will be committed to a subscription. 
+  #         A term can span multiple billing periods.
+  #     - name: current_term_ended_at
+  #       description: >
+  #         When the term ends. This is calculated by a plan's interval and total_billing_cycles in a term. 
+  #         Subscription changes with a timeframe=renewal will be applied on this date.
+  #     - name: trial_started_at
+  #       description: Trial period started at
+  #     - name: trial_ended_at
+  #       description: Trial period ends at
+  #     - name: remaining_billing_cycles
+  #       description: The remaining billing cycles in the current term.
+  #     - name: total_billing_cycles
+  #       description: >
+  #         The number of cycles/billing periods in a term. 
+  #         When remaining_billing_cycles=0, if auto_renew=true the subscription will renew and a new term will begin, 
+  #         otherwise the subscription will expire.
+  #     - name: renewal_billing_cycles
+  #       description: >
+  #         If auto_renew=true, when a term completes, total_billing_cycles takes this value as the length of subsequent terms. 
+  #         Defaults to the plan's total_billing_cycles.
+  #     - name: auto_renew
+  #       description: >
+  #         Whether the subscription renews at the end of its term.
+  #         Default: true
+  #     - name: paused_at
+  #       description: Null unless subscription is paused or will pause at the end of the current billing period.
+  #     - name: remaining_pause_cycles
+  #       description: Null unless subscription is paused or will pause at the end of the current billing period.
+  #     - name: subscription_currency
+  #       description: 3-letter ISO 4217 currency code.
+  #     - name: subscription_unit_amount
+  #       description: Subscription unit price
+  #     - name: subscription_subtotal
+  #       description: Estimated total, before tax.
+  #     - name: subscription_quantity
+  #       description: Subscription quantity. Greater or equal to 0.
+  #     - name: add_ons_total
+  #       description: Total price of add-ons. Greater or equal to 0.
+  #     - name: subscription_collection_method
+  #       description: >
+  #         Default: "automatic"
+  #         Enum: "automatic", "manual"
+  #     - name: subscription_expiration_reason
+  #       description: Expiration reason.
+  #     - name: subscription_custom_coupon_code
+  #       description: Coupon code used for subscription.

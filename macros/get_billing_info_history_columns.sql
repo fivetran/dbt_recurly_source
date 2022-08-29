@@ -30,7 +30,7 @@
     {"name": "fraud_risk_rules_triggered", "datatype": "variant"},
     {"name": "created_at", "datatype": dbt_utils.type_timestamp()},
     {"name": "updated_by_ip", "datatype": dbt_utils.type_string()},
-    {"name": "updated_by_country", "datatype": dbt_utils.type_string()},
+    {"name": "updated_by_country", "datatype": dbt_utils.type_string()} 
 ] %}
 
 {{ return(columns) }}

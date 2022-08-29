@@ -26,7 +26,7 @@
     {"name": "tax", "datatype": dbt_utils.type_int()},
     {"name": "tax_type", "datatype": dbt_utils.type_string()},
     {"name": "tax_region", "datatype": dbt_utils.type_string()},
-    {"name": "tax_rate", "datatype": dbt_utils.type_float()},
+    {"name": "tax_rate", "datatype": dbt_utils.type_float()}
 ] %}
 
 {{ return(columns) }}

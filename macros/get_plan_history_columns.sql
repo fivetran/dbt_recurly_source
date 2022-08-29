@@ -19,7 +19,7 @@
     {"name": "accounting_code", "datatype": dbt_utils.type_string()},
     {"name": "setup_fee_accounting_code", "datatype": dbt_utils.type_string()},
     {"name": "tax_code", "datatype": dbt_utils.type_string()},
-    {"name": "tax_exempt", "datatype": "boolean"},
+    {"name": "tax_exempt", "datatype": "boolean"}
 ] %}
 
 {{ return(columns) }}

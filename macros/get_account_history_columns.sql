@@ -17,7 +17,7 @@
     {"name": "company", "datatype": dbt_utils.type_string()},
     {"name": "vat_number", "datatype": dbt_utils.type_string()},
     {"name": "tax_exempt", "datatype": "boolean"},
-    {"name": "account_country", "datatype": dbt_utils.type_string()},
+    {"name": "account_country", "datatype": dbt_utils.type_string()}
 ] %}
 
 {{ return(columns) }}

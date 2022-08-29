@@ -1,4 +1,4 @@
-{% macro get_account_history_columns() %}
+{% macro get_account_acquisition_history_columns() %}
 
 {% set columns = [
 
