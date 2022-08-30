@@ -35,7 +35,7 @@ final as (
         subscription_id,
         uuid,
         type,
-        status,
+        state,
         origin,
         product_code,
         UPPER(currency) as currency,

@@ -11,6 +11,27 @@ sources:
       error_after: { count: 168, period: hour }
 
     tables:
+      - name: account_balance_history
+        description: The customer account balance is made up of any open or past due invoices on the account alongside any charge or credit adjustments that are left uninvoiced and open on the account respectively. 
+        columns:
+          - name: account_id
+          - name: account_updated_at
+          - name: balance_currency
+          - name: balance_amount
+          - name: past_due
+
+      - name: account_note_history
+        description: A history of notes your team can leave on an account to add context. Notes are internal and not exposed to customers.
+        columns: 
+          - name: id
+          - name: account_id
+          - name: account_updated_at
+          - name: object
+          - name: user_id
+          - name: user_email
+          - name: message
+          - name: created_at
+
       - name: account_history
         description: >
           The account object stores the entire Recurly history of your customer and 
@@ -59,6 +80,7 @@ sources:
             description: The tax status of the account. true exempts tax on the account, false applies tax on the account.
 
       - name: billing_info_history
+        description: Stored payment information for an account. Filled out by the customer upon purchase or when they update information.
         columns:
           - name: id
           - name: updated_at
@@ -89,6 +111,55 @@ sources:
           - name: created_at
           - name: updated_by_ip
           - name: updated_by_country
+      
+      - name: coupon_discount
+        description: A look at the coupon details and the discounts set for customer purchases.
+        columns:
+          - name: fivetran_id
+          - name: coupon_id
+          - name: amount
+          - name: currency
+          - name: percentage
+          - name: trial_length
+          - name: trial_unit
+          - name: type
+
+      - name: coupon_redemption_history
+        description: History of coupons redeemed by accounts.
+        columns:
+          - name: id
+          - name: updated_at
+          - name: coupon_id
+          - name: account_id
+          - name: state
+          - name: currency
+          - name: discounted
+          - name: created_at
+          - name: removed_at
+      
+      - name: credit_payment_history
+        description: A history of outstanding credit balance to pay an invoice, but does include the record of write-offs, credit balance removals, and credit payments later refunded as cash transaction.
+        columns:
+          - name: id
+          - name: updated_at
+          - name: account_id
+          - name: applied_to_invoice_id
+          - name: original_invoice_id
+          - name: refund_transaction_id
+          - name: original_credit_payment_id
+          - name: uuid
+          - name: action
+          - name: currency
+          - name: amount
+          - name: created_at
+          - name: voided_at
+
+      - name: invoice_coupon_redemption_history
+        description: History of coupons redeemed and applied to specific invoices.
+        columns:
+          - name: coupon_redemption_id
+          - name: invoice_updated_at
+          - name: invoice_id
 
       - name: invoice_history
         description: >
@@ -307,6 +378,20 @@ sources:
           - name: end_date
             description: If this date is provided, it indicates the end of a time range
 
+      - name: plan_currency_history
+        description: Plan prices
+        columns:
+          - name: plan_id
+            description: The id of the plan. 
+          - name: plan_updated_at
+            description: plan_updated_at
+          - name: currency
+            description: currency
+          - name: setup_fees
+            description: setup_fees
+          - name: unit_amount
+            description: unit_amount
+
       - name: plan_history
         description: >
           Plans define the base price, currency, and billing cycle for recurring purchases of products.
@@ -370,6 +455,34 @@ sources:
           - name: tax_exempt
             description: true exempts tax on the plan, false applies tax on the plan.
 
+      - name: subscription_add_on_history
+        description: History of subscription add-ons to a particular plan. 
+        columns:
+          - name: id
+          - name: updated_at
+          - name: subscription_id
+          - name: plan_add_on_id
+          - name: object
+          - name: unit_amount
+          - name: quantity
+          - name: created_at
+          - name: expired_at
+
+      - name: subscription_change_history
+        description: History of subscription changes, particularly upgrades and downgrades, but also changes to how subscription is invoiced.
+        columns:
+          - name: id
+          - name: updated_at
+          - name: plan_id
+          - name: subscription_id
+          - name: object
+          - name: unit_amount
+          - name: quantity
+          - name: activate_at
+          - name: activated
+          - name: created_at
+          - name: deleted_at
+      
       - name: subscription_history
         description: >
           Subscriptions are created when your customers subscribe to one of your plans. 
@@ -452,6 +565,17 @@ sources:
               Enum: "automatic", "manual"
           - name: expiration_reason
             description: Expiration reason
+
+      - name: transaction_subscription
+        description: >
+          The connection between transaction and subscription. 
+          FK on transaction is transaction_id, and on subscription is subscription_id.
+          The table holds the lineage of the transaction - subscription connection.
+        columns:
+          - name: transaction_id
+            description: The id of the transaction associated with the subscription.
+          - name: subscription_id
+            description: The id of the subscription associated with the transaction.
 
       - name: transaction
         description: >
@@ -555,27 +679,3 @@ sources:
           - name: gateway_response_values
             description: The values in this field will vary from gateway to gateway.
 
-      - name: transaction_subscription
-        description: >
-          The connection between transaction and subscription. 
-          FK on transaction is transaction_id, and on subscription is subscription_id.
-          The table holds the lineage of the transaction - subscription connection.
-        columns:
-          - name: transaction_id
-            description: The id of the transaction associated with the subscription.
-          - name: subscription_id
-            description: The id of the subscription associated with the transaction.
-
-      - name: plan_currency_history
-        description: Plan prices
-        columns:
-          - name: plan_id
-            description: The id of the plan. 
-          - name: plan_updated_at
-            description: plan_updated_at
-          - name: currency
-            description: currency
-          - name: setup_fees
-            description: setup_fees
-          - name: unit_amount
-            description: unit_amount

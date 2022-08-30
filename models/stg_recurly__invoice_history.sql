@@ -28,7 +28,7 @@ final as (
         previous_invoice_id,
         type,
         origin,
-        status,
+        state,
         number,
         collection_method,
         po_number,

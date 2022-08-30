@@ -11,9 +11,7 @@
     {"name": "channel", "datatype": dbt_utils.type_string()},
     {"name": "subchannel", "datatype": dbt_utils.type_string()},
     {"name": "campaign", "datatype": dbt_utils.type_string()},
-    {"name": "created_at", "datatype": dbt_utils.type_timestamp()},
-    {"name": "updated_at", "datatype": dbt_utils.type_timestamp()},
-
+    {"name": "created_at", "datatype": dbt_utils.type_timestamp()}
 ] %}
 
 {{ return(columns) }}

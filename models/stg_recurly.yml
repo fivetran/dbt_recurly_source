@@ -1,6 +1,27 @@
 version: 2
 
 models:
+  - name: stg_recurly__account_balance_history
+    description: The customer account balance is made up of any open or past due invoices on the account alongside any charge or credit adjustments that are left uninvoiced and open on the account respectively. 
+    columns:
+      - name: account_id
+      - name: account_updated_at
+      - name: balance_currency
+      - name: balance_amount
+      - name: past_due
+
+  - name: stg_recurly__account_note_history
+    description: A history of notes your team can leave on an account to add context. Notes are internal and not exposed to customers.
+    columns: 
+      - name: id
+      - name: account_id
+      - name: account_updated_at
+      - name: object
+      - name: user_id
+      - name: user_email
+      - name: message
+      - name: created_at
+  
   - name: stg_recurly__account_history
     description: >
       The account object stores the entire Recurly history of your customer and 
@@ -57,6 +78,7 @@ models:
         description: The tax status of the account. true exempts tax on the account, false applies tax on the account.
 
   - name: stg_recurly__billing_info_history
+    description: Stored payment information for an account. Filled out by the customer upon purchase or when they update information.
     columns:
       - name: billing_id
       - name: created_at
@@ -80,6 +102,55 @@ models:
       - name: payment_method_object
       - name: payment_method_card_type
       - name: is_valid
+
+  - name: stg_recurly__coupon_discount
+    description: Coupon details and the discounts set for customer purchases.
+    columns:
+      - name: fivetran_id
+      - name: coupon_id
+      - name: amount
+      - name: currency
+      - name: percentage
+      - name: trial_length
+      - name: trial_unit
+      - name: type
+
+  - name: stg_recurly__coupon_redemption_history
+    description: History of coupons redeemed by accounts.
+    columns:
+      - name: id
+      - name: updated_at
+      - name: coupon_id
+      - name: account_id
+      - name: state
+      - name: currency
+      - name: discounted
+      - name: created_at
+      - name: removed_at
+      
+  - name: stg_recurly__credit_payment_history
+    description: A history of outstanding credit balance to pay an invoice, but does include the record of write-offs, credit balance removals, and credit payments later refunded as cash transaction.
+    columns:
+      - name: id
+      - name: updated_at
+      - name: account_id
+      - name: applied_to_invoice_id
+      - name: original_invoice_id
+      - name: refund_transaction_id
+      - name: original_credit_payment_id
+      - name: uuid
+      - name: action
+      - name: currency
+      - name: amount
+      - name: created_at
+      - name: voided_at
+
+  - name: stg_recurly__invoice_coupon_redemption_history
+    description: History of coupons redeemed and applied to specific invoices.
+    columns:
+      - name: coupon_redemption_id
+      - name: invoice_updated_at
+      - name: invoice_id
 
   - name: stg_recurly__invoice_history
     description: >
@@ -117,9 +188,9 @@ models:
           The event that created the invoice.
           Enum: "credit", "gift_card", "immediate_change", "line_item_refund", "open_amount_refund", 
           "purchase", "renewal", "termination", "write_off", "prepayment".
-      - name: status
+      - name: state
         description: >
-          The invoice status. 
+          The invoice state. 
           Enum: "open", "pending", "processing", "past_due", "paid", "closed", "failed", "voided"
       - name: number
         description: >
@@ -253,7 +324,7 @@ models:
           Charges are positive line items that debit the account. 
           Credits are negative line items that credit the account.
           Enum: "charge", "credit"
-      - name: status
+      - name: state
         description: >
           Pending line items are charges or credits on an account that have not been applied to an invoice yet. 
           Invoiced line items will always have an invoice_id value.
@@ -316,6 +387,21 @@ models:
       - name: ended_at
         description: If this date is provided, it indicates the end of a time range
 
+
+  - name: stg_recurly__plan_currency_history
+    description: Plan prices
+    columns:
+      - name: plan_id
+        description: The id of the plan. 
+      - name: plan_updated_at
+        description: plan_updated_at
+      - name: currency
+        description: currency
+      - name: setup_fees
+        description: setup_fees
+      - name: unit_amount
+        description: unit_amount
+
   - name: stg_recurly__plan_history
     description: >
       Plans define the base price, currency, and billing cycle for recurring purchases of products.
@@ -323,21 +409,21 @@ models:
     columns:
       - name: plan_id
         description: Unique identifier for the object.
-      - name: plan_code
+      - name: code
         description: Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
-      - name: plan_created_at
+      - name: created_at
         description: When the plan was created.
-      - name: plan_updated_at
+      - name: updated_at
         description: When the plan was updated.
-      - name: plan_deleted_at
+      - name: deleted_at
         description: When the plan was deleted.
-      - name: plan_state
+      - name: state
         description: >
           The current state of the plan.
           Enum: "active", "inactive"
-      - name: plan_name
+      - name: name
         description: This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
-      - name: plan_description
+      - name: description
         description: Optional description, not displayed.
       - name: interval_unit
         description: >
@@ -379,6 +465,34 @@ models:
       - name: plan_tax_exempt
         description: true exempts tax on the plan, false applies tax on the plan.
 
+  - name: stg_recurly__subscription_add_on_history
+    description: History of subscription add-ons to a particular plan. 
+    columns:
+      - name: id
+      - name: updated_at
+      - name: subscription_id
+      - name: plan_add_on_id
+      - name: object
+      - name: unit_amount
+      - name: quantity
+      - name: created_at
+      - name: expired_at
+
+  - name: stg_recurly__subscription_change_history
+    description: History of subscription changes, particularly upgrades and downgrades, but also changes to how subscription is invoiced.
+    columns:
+      - name: id
+      - name: updated_at
+      - name: plan_id
+      - name: subscription_id
+      - name: object
+      - name: unit_amount
+      - name: quantity
+      - name: activate_at
+      - name: activated
+      - name: created_at
+      - name: deleted_at
+      
   - name: stg_recurly__subscription_history
     description: >
       Subscriptions are created when your customers subscribe to one of your plans. 
@@ -387,29 +501,29 @@ models:
     columns:
       - name: subscription_id
         description: Unique identifier for the subscription.
-      - name: subscription_created_at
+      - name: created_at
         description: When the subscription was created.
-      - name: subscription_updated_at
+      - name: updated_at
         description: When the subscription was updated.
-      - name: subscription_activated_at
+      - name: activated_at
         description: When the subscription was activated.
-      - name: subscription_canceled_at
+      - name: canceled_at
         description: When the subscription was canceled. Can take future dates.
-      - name: subscription_expires_at
+      - name: expires_at
         description: When the subscription has expired. Can take future dates.
-      - name: subscription_paused_at
+      - name: paused_at
         description: When the subscription will/has paused. Can take future dates.
-      - name: subscription_converted_at
+      - name: converted_at
         description: When the subscription has converted from trial.
       - name: account_id
         description: The account this subscription belongs to.
       - name: plan_id
         description: The plan this subscription belongs to.
-      - name: subscription_object
+      - name: object
         description: The object type, in this case only "subscription"
-      - name: subscription_uuid
+      - name: uuid
         description: The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
-      - name: subscription_state
+      - name: state
         description: >
           The current state of the subscription.
           Enum: "active", "canceled", "expired", "failed", "future", "paused"
@@ -467,6 +581,16 @@ models:
         description: Expiration reason.
       - name: subscription_custom_coupon_code
         description: Coupon code used for subscription.
+
+  - name: stg_recurly__transaction_subscription
+    description: >
+      The connection between transaction and subscription. 
+      FK on transaction is transaction_id, and on subscription is subscription_id.
+    columns:
+      - name: transaction_id
+        description: The id of the transaction associated with the subscription.
+      - name: subscription_id
+        description: The id of the subscription associated with the transaction.
 
   - name: stg_recurly__transaction
     description: >
@@ -570,15 +694,6 @@ models:
       - name: gateway_response_values
         description: The values in this field will vary from gateway to gateway.
 
-  - name: stg_recurly__transaction_subscription
-    description: >
-      The connection between transaction and subscription. 
-      FK on transaction is transaction_id, and on subscription is subscription_id.
-    columns:
-      - name: transaction_id
-        description: The id of the transaction associated with the subscription.
-      - name: subscription_id
-        description: The id of the subscription associated with the transaction.
 
   # - name: stg_recurly__account_latest
   #   description: >

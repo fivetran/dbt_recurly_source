@@ -31,7 +31,7 @@ final as (
         plan_id,
         object,
         uuid,
-        status,
+        state,
         current_period_started_at,
         current_period_ends_at as current_period_ended_at,
         current_term_started_at,

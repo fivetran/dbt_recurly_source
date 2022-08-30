@@ -24,7 +24,7 @@ final as (
         created_at,
         updated_at,
         deleted_at,
-        status,
+        state,
         name,
         description,
         interval_unit,

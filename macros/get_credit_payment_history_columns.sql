@@ -10,10 +10,10 @@
     {"name": "refund_transaction_id", "datatype": dbt_utils.type_string()},
     {"name": "original_credit_payment_id", "datatype": dbt_utils.type_string()},
     {"name": "uuid", "datatype": dbt_utils.type_string()},
-    {"name": "action", "datatype": dbt_utils.type_string()}
-    {"name": "currency", "datatype": dbt_utils.type_string()}
-    {"name": "amount", "datatype": dbt_utils.type_string()}
-    {"name": "created_at", "datatype": dbt_utils.type_timestamp()}
+    {"name": "action", "datatype": dbt_utils.type_string()},
+    {"name": "currency", "datatype": dbt_utils.type_string()},
+    {"name": "amount", "datatype": dbt_utils.type_string()},
+    {"name": "created_at", "datatype": dbt_utils.type_timestamp()},
     {"name": "voided_at", "datatype": dbt_utils.type_timestamp()}
 ] %}
 

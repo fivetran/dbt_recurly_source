@@ -1,4 +1,4 @@
-{% macro get_subscription_add_on_history_columns() %}
+{% macro get_subscription_change_history_columns() %}
 
 {% set columns = [
     {"name": "_fivetran_synced", "datatype": dbt_utils.type_timestamp()},
