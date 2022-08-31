@@ -38,19 +38,20 @@ vars:
 ```
 
 ## Step 4: Disable models for non-existent sources
-Your Recurly connector might not sync every table that this package expects. 
+Your Recurly connector may not be syncing all tabes that this package references. This might be because you are excluding those tables. If you are not using those tables, you can disable the corresponding functionality in the package by specifying the variable in your dbt_project.yml. By default, all packages are assumed to be true. You only have to add variables for tables you want to disable, like so:
 
-[] Avinash to revisit here if this is applicable. 
-
-<!--  
-If you have financial and/or subscriptions data, namely the `earnings` and `financial_stats_subscriptions_country` tables, add the following variable(s) to your `dbt_project.yml` file:
- 
 ```yml
-vars:
-    google_play__using_earnings: true # by default this is assumed to be FALSE
-    google_play__using_subscriptions: true # by default this is assumed to be FALSE
-``` -->
+# dbt_project.yml
 
+...
+config-version: 2
+
+vars:
+  recurly__using_credit_payment_history: false # Disable if you do not have the credit_payment_history table
+  recurly__using_subscription_add_on_history: false # Disable if you do not have the subscription_add_on_history table
+  recurly__using_subscription_change_history: false # Disable if you do not have the subscription_change_history table
+
+```   
 ## (Optional) Step 5: Additional configurations
 <details><summary>Expand to view configurations</summary>
 
@@ -92,6 +93,9 @@ packages:
 
     - package: dbt-labs/dbt_utils
       version: [">=0.8.0", "<0.9.0"]
+
+    - package: dbt-labs/spark_utils
+      version: [">=0.3.0", "<0.4.0"]
 ```
           
 # 🙌 How is this package maintained and can I contribute?

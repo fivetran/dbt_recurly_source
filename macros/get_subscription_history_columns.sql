@@ -18,7 +18,7 @@
     {"name": "current_term_started_at", "datatype": dbt_utils.type_timestamp()},
     {"name": "current_term_ends_at", "datatype": dbt_utils.type_timestamp()},
     {"name": "trial_started_at", "datatype": dbt_utils.type_timestamp()},
-    {"name": "trial_ended_at", "datatype": dbt_utils.type_timestamp()},
+    {"name": "trial_ends_at", "datatype": dbt_utils.type_timestamp()},
     {"name": "remaining_billing_cycles", "datatype": dbt_utils.type_int()},
     {"name": "total_billing_cycles", "datatype": dbt_utils.type_int()},
     {"name": "renewal_billing_cycles", "datatype": dbt_utils.type_int()},
@@ -32,9 +32,7 @@
     {"name": "subtotal", "datatype": dbt_utils.type_int()},
     {"name": "collection_method", "datatype": dbt_utils.type_string()},
     {"name": "expiration_reason", "datatype": dbt_utils.type_string()},
-    {"name": "started_with_gift", "datatype": "boolean"},
-    {"name": "converted_at", "datatype": dbt_utils.type_timestamp()},
-    {"name": "custom_coupon_code", "datatype": dbt_utils.type_string()}
+    {"name": "started_with_gift", "datatype": "boolean"} 
 ] %}
 
 {{ return(columns) }}

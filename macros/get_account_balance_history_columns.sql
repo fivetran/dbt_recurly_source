@@ -1,4 +1,4 @@
-03:08:20  {% macro get_account_balance_history_columns() %}
+{% macro get_account_balance_history_columns() %}
 
 {% set columns = [
     {"name": "_fivetran_synced", "datatype": dbt_utils.type_timestamp()},

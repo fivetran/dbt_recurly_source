@@ -88,8 +88,8 @@ sources:
           - name: first_name
           - name: last_name
           - name: company
-          - name: billing_first_name
-          - name: billing_last_name
+          - name: first_name
+          - name: last_name
           - name: billing_phone
           - name: billing_street_1
           - name: billing_street_2
@@ -113,7 +113,7 @@ sources:
           - name: updated_by_country
       
       - name: coupon_discount
-        description: A look at the coupon details and the discounts set for customer purchases.
+        description: Coupon details and the discounts set for customer purchases.
         columns:
           - name: fivetran_id
           - name: coupon_id
@@ -367,7 +367,7 @@ sources:
               For line items created prior to that date, the proration rate will be null, even if the line item was prorated.
           - name: refund
             description: true if the line item is refund, false if it is not.
-          - name: refund_quantity
+          - name: refunded_quantity
             description: For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).
           - name: credit_applied
             description: The amount of credit from this line item that was applied to the invoice.
@@ -528,7 +528,7 @@ sources:
               Subscription changes with a timeframe=renewal will be applied on this date.
           - name: trial_started_at
             description: Trial period started at
-          - name: trial_ended_at
+          - name: trial_ends_at
             description: Trial period ends at
           - name: remaining_billing_cycles
             description: The remaining billing cycles in the current term.

@@ -53,7 +53,7 @@ final as (
         tax_rate,
         proration_rate,
         refund as has_refund,
-        refund_quantity,
+        refunded_quantity,
         credit_applied,
         start_date as started_at,
         end_date as ended_at

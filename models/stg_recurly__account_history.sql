@@ -31,7 +31,7 @@ final as (
         company,
         vat_number,
         tax_exempt as is_tax_exempt,
-        account_country
+        account_country,
         created_at,
         updated_at,
         deleted_at,

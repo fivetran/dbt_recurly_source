@@ -37,7 +37,7 @@ final as (
         current_term_started_at,
         current_term_ends_at as current_term_ended_at,
         trial_started_at,
-        trial_ended_at,
+        trial_ends_at,
         remaining_billing_cycles,
         total_billing_cycles,
         renewal_billing_cycles,
@@ -50,8 +50,7 @@ final as (
         subtotal,
         collection_method,
         expiration_reason,
-        started_with_gift as has_started_with_gift,
-        custom_coupon_code
+        started_with_gift as has_started_with_gift 
     from
         fields
 )

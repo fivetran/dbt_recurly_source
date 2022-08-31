@@ -27,8 +27,8 @@ final as (
         , last_name
         , company
         , vat_number
-        , billing_first_name
-        , billing_last_name
+        , first_name
+        , last_name
         , billing_phone
         , billing_street_1
         , billing_street_2
