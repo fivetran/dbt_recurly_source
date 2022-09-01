@@ -18,8 +18,9 @@ fields as (
         base
 ),
 final as (
-    select
+    select  
         id as transaction_id,
+        _fivetran_synced,
         created_at,
         voided_at,
         collected_at,

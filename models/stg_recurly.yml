@@ -3,8 +3,18 @@ version: 2
 models:
   - name: stg_recurly__account_balance_history
     description: The customer account balance is made up of any open or past due invoices on the account alongside any charge or credit adjustments that are left uninvoiced and open on the account respectively. 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - account_id
+            - account_updated_at 
+    
     columns:
       - name: account_id
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: account_updated_at
       - name: balance_currency
       - name: balance_amount
@@ -12,8 +22,19 @@ models:
 
   - name: stg_recurly__account_note_history
     description: A history of notes your team can leave on an account to add context. Notes are internal and not exposed to customers.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - account_note_id
+            - account_id
+            - account_updated_at 
+
     columns: 
-      - name: id
+      - name: account_note_id
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: account_id
       - name: account_updated_at
       - name: object
@@ -27,27 +48,29 @@ models:
       The account object stores the entire Recurly history of your customer and 
       acts as the entry point for working with a customer's billing information, subscription data, transactions, invoices and more. 
       Once an account is created, all values (with the exception of the account code) may be updated.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - account_id
+            - updated_at 
+    
     columns:
       - name: account_id
         description: Uniquely identifies your customers in Recurly. No two customers can share the same account id. Part of the PK
         tests:
           - not_null
+          - unique
+      - name: _fivetran_synced
       - name: created_at
         description: When the account was created.
-        tests:
-          - not_null
       - name: updated_at
         description: When the account was last changed. Part of the PK
-        tests:
-          - not_null
       - name: deleted_at
         description: If present, when the account was last marked inactive.
       - name: code
         description: >
           The unique identifier of the account. This cannot be changed once the account is created. 
           Provided during account creation.
-        tests:
-          - not_null
       - name: bill_to
         description: >
           An enumerable describing the billing behavior of the account, 
@@ -79,8 +102,18 @@ models:
 
   - name: stg_recurly__billing_info_history
     description: Stored payment information for an account. Filled out by the customer upon purchase or when they update information.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - billing_id
+            - updated_at 
+
     columns:
       - name: billing_id
+        tests:
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: created_at
       - name: updated_at
       - name: account_id
@@ -88,8 +121,6 @@ models:
       - name: last_name
       - name: company
       - name: vat_number
-      - name: billing_first_name
-      - name: billing_last_name
       - name: billing_phone
       - name: billing_street_1
       - name: billing_street_2
@@ -104,10 +135,14 @@ models:
       - name: is_valid
 
   - name: stg_recurly__coupon_discount
-    description: Coupon details and the discounts set for customer purchases.
+    description: Coupon details and the discounts set for customer purchases.    
     columns:
-      - name: fivetran_id
       - name: coupon_id
+        tests:
+          - not_null
+          - unique
+      - name: _fivetran_synced
+      - name: fivetran_id
       - name: amount
       - name: currency
       - name: percentage
@@ -117,8 +152,18 @@ models:
 
   - name: stg_recurly__coupon_redemption_history
     description: History of coupons redeemed by accounts.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - coupon_redemption_id
+            - updated_at 
+    
     columns:
-      - name: id
+      - name: coupon_redemption_id
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: updated_at
       - name: coupon_id
       - name: account_id
@@ -130,8 +175,18 @@ models:
       
   - name: stg_recurly__credit_payment_history
     description: A history of outstanding credit balance to pay an invoice, but does include the record of write-offs, credit balance removals, and credit payments later refunded as cash transaction.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - credit_payment_id
+            - updated_at 
+    
     columns:
-      - name: id
+      - name: credit_payment_id
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: updated_at
       - name: account_id
       - name: applied_to_invoice_id
@@ -147,8 +202,18 @@ models:
 
   - name: stg_recurly__invoice_coupon_redemption_history
     description: History of coupons redeemed and applied to specific invoices.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - coupon_redemption_id
+            - invoice_updated_at 
+    
     columns:
       - name: coupon_redemption_id
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: invoice_updated_at
       - name: invoice_id
 
@@ -158,27 +223,29 @@ models:
       When a subscription is created or renewed or a charge is created on the account, 
       Recurly will sum the charges, discount or tax as appropriate, and send the invoice out for collection. 
       The table holds the lineage of the invoice.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - invoice_id
+            - updated_at
+
     columns:
       - name: invoice_id
         description: Unique identifier for the object.
-        tests:
+        tests: 
           - not_null
+          - unique
+      - name: _fivetran_synced
       - name: created_at
         description: When the invoice was created.
-        tests:
-          - not_null
       - name: updated_at
-        description: When the invoice was updated.
-        tests:
-          - not_null
+        description: When the invoice was updated. 
       - name: due_at
         description: Date invoice is due. This is the date the net terms are reached.
       - name: closed_at
         description: Date invoice was marked paid or failed.
       - name: account_id
         description: The account this invoice belongs to.
-        tests:
-          - not_null
       - name: previous_invoice_id
         description: On refund invoices, this value will exist and show the invoice ID of the purchase invoice the refund was created from.
       - name: type
@@ -219,32 +286,20 @@ models:
         description: 3-letter ISO 4217 currency code.
       - name: balance
         description: The outstanding balance remaining on this invoice.
-        tests:
-          - not_null
       - name: paid
         description: The total amount of successful payments transaction on this invoice.
-        tests:
-          - not_null
       - name: refundable_amount
         description: The refundable amount on a charge invoice. It will be null for all other invoices.
       - name: discount
         description: Total discounts applied to this invoice.
-        tests:
-          - not_null
       - name: total
         description: >
           The final total on this invoice. The summation of invoice charges, discounts, credits, and tax.
           Alternative the summation of subtotal and tax.
-        tests:
-          - not_null
       - name: subtotal
         description: The summation of charges, discounts, and credits, before tax.
-        tests:
-          - not_null
       - name: tax
         description: The total tax on this invoice.
-        tests:
-          - not_null
       - name: tax_type
         description: >
           Provides the tax type as "vat" for EU VAT, "usst" for U.S. Sales Tax, 
@@ -263,37 +318,50 @@ models:
       The connection between invoices and subscription. 
       FK on invoice are both invoice_id and invoice_updated_at, and on subscription is subscription_id.
       The table holds the lineage of the invoice - subscription connection.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - invoice_id
+            - subscription_id
+    
     columns:
       - name: invoice_id
         description: The id of the invoice associated with the subscription.
+        tests:
+          - not_null
+      - name: _fivetran_synced
       - name: invoice_updated_at
         description: When the invoice was updated.
       - name: subscription_id
         description: The id of the subscription associated with the invoice.
+        tests:
+          - not_null
 
   - name: stg_recurly__line_item_history
     description: >
       Line items are the charges and credits on your customer's invoices.
       The table holds the lineage of the line item.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - line_item_id
+            - updated_at
+  
     columns:
       - name: line_item_id
         description: Unique identifier for the object.
         tests:
           - not_null
+          - unique
+      - name: _fivetran_synced
       - name: description
         description: Description that appears on the invoice. For subscription related items this will be filled in automatically.
       - name: created_at
         description: When the line item was created.
-        tests:
-          - not_null
       - name: updated_at
         description: When the line item was updated.
-        tests:
-          - not_null
       - name: account_id
         description: The account this line item belongs to.
-        tests:
-          - not_null
       - name: plan_id
         description: If the line item is a charge or credit for a plan or add-on, this is the plan's ID.
       - name: plan_code
@@ -390,9 +458,19 @@ models:
 
   - name: stg_recurly__plan_currency_history
     description: Plan prices
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - plan_id
+            - plan_updated_at
+
     columns:
       - name: plan_id
         description: The id of the plan. 
+        tests:
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: plan_updated_at
         description: plan_updated_at
       - name: currency
@@ -406,9 +484,19 @@ models:
     description: >
       Plans define the base price, currency, and billing cycle for recurring purchases of products.
       The table holds the lineage of the plan.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - plan_id
+            - updated_at
+
     columns:
       - name: plan_id
         description: Unique identifier for the object.
+        tests:
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: code
         description: Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
       - name: created_at
@@ -467,8 +555,18 @@ models:
 
   - name: stg_recurly__subscription_add_on_history
     description: History of subscription add-ons to a particular plan. 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - subscription_id
+            - updated_at
+
     columns:
-      - name: id
+      - name: subscription_id
+        tests:
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: updated_at
       - name: subscription_id
       - name: plan_add_on_id
@@ -480,8 +578,18 @@ models:
 
   - name: stg_recurly__subscription_change_history
     description: History of subscription changes, particularly upgrades and downgrades, but also changes to how subscription is invoiced.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - subscription_id
+            - updated_at
+
     columns:
-      - name: id
+      - name: subscription_id
+        tests:
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: updated_at
       - name: plan_id
       - name: subscription_id
@@ -498,9 +606,19 @@ models:
       Subscriptions are created when your customers subscribe to one of your plans. 
       The customer's subscription tells Recurly when and how much to bill the customer.
       The table holds the lineage of the subscription.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - subscription_id
+            - updated_at
+
     columns:
       - name: subscription_id
         description: Unique identifier for the subscription.
+        tests:
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: created_at
         description: When the subscription was created.
       - name: updated_at
@@ -586,19 +704,40 @@ models:
     description: >
       The connection between transaction and subscription. 
       FK on transaction is transaction_id, and on subscription is subscription_id.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - transaction_id
+            - subscription_id
+
     columns:
       - name: transaction_id
         description: The id of the transaction associated with the subscription.
+        tests:
+          - not_null 
+      - name: _fivetran_synced
       - name: subscription_id
         description: The id of the subscription associated with the transaction.
+        tests:
+          - not_null 
 
   - name: stg_recurly__transaction
     description: >
       Purchasing information is sent to your payment gateway in an action called a transaction. 
       This includes the customer's billing information and the amount of money to be charged, voided, or refunded.
+    tests:
+    - dbt_utils.unique_combination_of_columns:
+        combination_of_columns:
+            - transaction_id
+            - transaction_created_at   
+
     columns:
       - name: transaction_id
         description: Unique identifier for the object.
+        tests:
+          - not_null
+          - unique
+      - name: _fivetran_synced
       - name: transaction_created_at
         description: When the transaction was created.
       - name: transaction_voided_at

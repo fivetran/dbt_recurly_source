@@ -18,7 +18,8 @@ fields as (
         base
 ),
 final as (
-    select
+    select 
+        _fivetran_synced,
         id as subscription_id,
         created_at,
         updated_at,

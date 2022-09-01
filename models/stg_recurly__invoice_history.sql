@@ -20,6 +20,7 @@ fields as (
 final as (
     select
         id as invoice_id,
+        _fivetran_synced,
         created_at,
         updated_at,
         due_at,

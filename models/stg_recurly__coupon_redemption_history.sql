@@ -20,13 +20,13 @@ fields as (
 final as (
     
     select 
+        id as coupon_redemption_id,
         _fivetran_synced,
         account_id,
         coupon_id,
         created_at,
         currency,
         discounted,
-        id,
         removed_at,
         state,
         updated_at

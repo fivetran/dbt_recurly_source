@@ -22,8 +22,8 @@ fields as (
 final as (
     
     select 
+        id as credit_payment_id,
         _fivetran_synced,
-        id,
         updated_at,
         account_id,
         applied_to_invoice_id,

@@ -20,6 +20,7 @@ fields as (
 final as (
     select
         id as account_id,
+        _fivetran_synced,
         code,
         bill_to,
         state,

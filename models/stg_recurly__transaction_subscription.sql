@@ -20,6 +20,7 @@ fields as (
 final as (
     select
         transaction_id,
+        _fivetran_synced,
         subscription_id
     from
         fields

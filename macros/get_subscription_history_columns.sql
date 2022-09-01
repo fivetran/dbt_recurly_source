@@ -7,6 +7,7 @@
     {"name": "updated_at", "datatype": dbt_utils.type_timestamp()},
     {"name": "activated_at", "datatype": dbt_utils.type_timestamp()},
     {"name": "canceled_at", "datatype": dbt_utils.type_timestamp()},
+    {"name": "converted_at", "datatype": dbt_utils.type_timestamp()},
     {"name": "expires_at", "datatype": dbt_utils.type_timestamp()},
     {"name": "account_id", "datatype": dbt_utils.type_string()},
     {"name": "plan_id", "datatype": dbt_utils.type_string()},

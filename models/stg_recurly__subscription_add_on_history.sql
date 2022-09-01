@@ -22,10 +22,10 @@ fields as (
 final as (
     
     select 
+        id as subscription_id,
         _fivetran_synced,
         created_at,
         expired_at,
-        id,
         object,
         plan_add_on_id,
         quantity,

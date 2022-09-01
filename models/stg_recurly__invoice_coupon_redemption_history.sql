@@ -20,8 +20,8 @@ fields as (
 final as (
     
     select 
-        _fivetran_synced,
         coupon_redemption_id,
+        _fivetran_synced,
         invoice_id,
         invoice_updated_at
     from fields

@@ -20,8 +20,8 @@ fields as (
 final as (
     
     select 
-        _fivetran_synced,
         account_id,
+        _fivetran_synced,
         account_updated_at,
         amount,
         currency,

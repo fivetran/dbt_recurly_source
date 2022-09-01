@@ -20,11 +20,11 @@ fields as (
 final as (
     
     select 
+        id as account_note_id,
         _fivetran_synced,
         account_id,
         account_updated_at,
         created_at,
-        id,
         message,
         object,
         user_email,

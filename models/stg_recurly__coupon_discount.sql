@@ -20,9 +20,9 @@ fields as (
 final as (
     
     select 
+        coupon_id,
         _fivetran_synced,
         amount,
-        coupon_id,
         currency,
         fivetran_id,
         percentage,

@@ -22,6 +22,7 @@ fields as (
 final as (
     select
         invoice_id,
+        _fivetran_synced,
         invoice_updated_at,
         subscription_id
     from

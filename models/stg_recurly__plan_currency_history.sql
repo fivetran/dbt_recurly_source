@@ -20,6 +20,7 @@ fields as (
 final as (
     select
         plan_id,
+        _fivetran_synced,
         plan_updated_at,
         currency,
         setup_fees,

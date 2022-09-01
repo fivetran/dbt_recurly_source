@@ -22,8 +22,8 @@ fields as (
 final as (
     
     select 
+        id as subscription_id,
         _fivetran_synced,
-        id,
         updated_at,
         plan_id,
         subscription_id,

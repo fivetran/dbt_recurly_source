@@ -20,6 +20,7 @@ fields as (
 final as (
     select
         id as billing_id
+        , _fivetran_synced
         , created_at
         , updated_at
         , account_id
@@ -27,8 +28,6 @@ final as (
         , last_name
         , company
         , vat_number
-        , first_name
-        , last_name
         , billing_phone
         , billing_street_1
         , billing_street_2

@@ -20,6 +20,7 @@ fields as (
 final as (
     select
         id as line_item_id,
+        _fivetran_synced,
         description,
         created_at,
         updated_at,
