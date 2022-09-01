@@ -12,8 +12,7 @@ models:
     columns:
       - name: account_id
         tests: 
-          - not_null
-          - unique
+          - not_null 
       - name: _fivetran_synced
       - name: account_updated_at
       - name: balance_currency
@@ -33,7 +32,6 @@ models:
       - name: account_note_id
         tests: 
           - not_null
-          - unique
       - name: _fivetran_synced
       - name: account_id
       - name: account_updated_at
@@ -59,7 +57,6 @@ models:
         description: Uniquely identifies your customers in Recurly. No two customers can share the same account id. Part of the PK
         tests:
           - not_null
-          - unique
       - name: _fivetran_synced
       - name: created_at
         description: When the account was created.
@@ -111,8 +108,7 @@ models:
     columns:
       - name: billing_id
         tests:
-          - not_null
-          - unique
+          - not_null 
       - name: _fivetran_synced
       - name: created_at
       - name: updated_at
@@ -139,8 +135,7 @@ models:
     columns:
       - name: coupon_id
         tests:
-          - not_null
-          - unique
+          - not_null 
       - name: _fivetran_synced
       - name: fivetran_id
       - name: amount
@@ -162,7 +157,6 @@ models:
       - name: coupon_redemption_id
         tests: 
           - not_null
-          - unique
       - name: _fivetran_synced
       - name: updated_at
       - name: coupon_id
@@ -185,7 +179,6 @@ models:
       - name: credit_payment_id
         tests: 
           - not_null
-          - unique
       - name: _fivetran_synced
       - name: updated_at
       - name: account_id
@@ -212,7 +205,6 @@ models:
       - name: coupon_redemption_id
         tests: 
           - not_null
-          - unique
       - name: _fivetran_synced
       - name: invoice_updated_at
       - name: invoice_id
@@ -234,7 +226,6 @@ models:
         description: Unique identifier for the object.
         tests: 
           - not_null
-          - unique
       - name: _fivetran_synced
       - name: created_at
         description: When the invoice was created.
@@ -322,6 +313,7 @@ models:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
             - invoice_id
+            - invoice_updated_at
             - subscription_id
     
     columns:
@@ -352,7 +344,6 @@ models:
         description: Unique identifier for the object.
         tests:
           - not_null
-          - unique
       - name: _fivetran_synced
       - name: description
         description: Description that appears on the invoice. For subscription related items this will be filled in automatically.
@@ -469,7 +460,6 @@ models:
         description: The id of the plan. 
         tests:
           - not_null
-          - unique
       - name: _fivetran_synced
       - name: plan_updated_at
         description: plan_updated_at
@@ -495,7 +485,6 @@ models:
         description: Unique identifier for the object.
         tests:
           - not_null
-          - unique
       - name: _fivetran_synced
       - name: code
         description: Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
@@ -565,7 +554,6 @@ models:
       - name: subscription_id
         tests:
           - not_null
-          - unique
       - name: _fivetran_synced
       - name: updated_at
       - name: subscription_id
@@ -617,7 +605,6 @@ models:
         description: Unique identifier for the subscription.
         tests:
           - not_null
-          - unique
       - name: _fivetran_synced
       - name: created_at
         description: When the subscription was created.
@@ -729,20 +716,19 @@ models:
     - dbt_utils.unique_combination_of_columns:
         combination_of_columns:
             - transaction_id
-            - transaction_created_at   
+            - created_at   
 
     columns:
       - name: transaction_id
         description: Unique identifier for the object.
         tests:
           - not_null
-          - unique
       - name: _fivetran_synced
-      - name: transaction_created_at
+      - name: created_at
         description: When the transaction was created.
-      - name: transaction_voided_at
+      - name: voided_at
         description: When the transaction was voided.
-      - name: transaction_collected_at
+      - name: collected_at
         description: When the transaction was collected.
       - name: original_transaction_id
         description: If this transaction is a refund (type=refund), this will be the ID of the original transaction on the invoice being refunded.
