@@ -28,4 +28,10 @@ dispatch:
   - macro_namespace: dbt_utils
     search_order: ['spark_utils', 'dbt_utils']
 
-
+seeds:
+  recurly_source_integration_tests:
+    credit_payment_history_data:
+      amount: float
+    subscription_change_history_data:
+      unit_amount: integer
+      quantity: integer
