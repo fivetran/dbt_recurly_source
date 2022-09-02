@@ -14,7 +14,7 @@
     {"name": "type", "datatype": dbt_utils.type_string()},
     {"name": "origin", "datatype": dbt_utils.type_string()},
     {"name": "currency", "datatype": dbt_utils.type_string()},
-    {"name": "amount", "datatype": dbt_utils.type_int()},
+    {"name": "amount", "datatype": dbt_utils.type_float()},
     {"name": "status", "datatype": dbt_utils.type_string()},
     {"name": "success", "datatype": "boolean"},
     {"name": "refunded", "datatype": "boolean"},

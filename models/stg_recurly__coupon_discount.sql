@@ -22,7 +22,7 @@ final as (
     select 
         coupon_id,
         _fivetran_synced,
-        amount,
+        cast(amount as {{ dbt_utils.type_float() }}) as amount,
         currency,
         fivetran_id,
         percentage,

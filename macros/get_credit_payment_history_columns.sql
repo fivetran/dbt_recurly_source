@@ -12,7 +12,7 @@
     {"name": "uuid", "datatype": dbt_utils.type_string()},
     {"name": "action", "datatype": dbt_utils.type_string()},
     {"name": "currency", "datatype": dbt_utils.type_string()},
-    {"name": "amount", "datatype": dbt_utils.type_string()},
+    {"name": "amount", "datatype": dbt_utils.type_float()},
     {"name": "created_at", "datatype": dbt_utils.type_timestamp()},
     {"name": "voided_at", "datatype": dbt_utils.type_timestamp()}
 ] %}

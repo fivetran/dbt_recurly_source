@@ -33,7 +33,7 @@ final as (
         uuid,
         action,
         currency,
-        amount,
+        cast(amount as {{ dbt_utils.type_float() }}) as amount,
         created_at,
         voided_at
     from fields

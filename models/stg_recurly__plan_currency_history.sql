@@ -24,7 +24,7 @@ final as (
         plan_updated_at,
         currency,
         setup_fees,
-        unit_amount
+        cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount
     from
         fields
 )

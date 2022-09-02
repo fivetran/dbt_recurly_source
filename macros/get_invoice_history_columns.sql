@@ -17,7 +17,7 @@
     {"name": "po_number", "datatype": dbt_utils.type_string()},
     {"name": "net_terms", "datatype": dbt_utils.type_string()},
     {"name": "currency", "datatype": dbt_utils.type_string()},
-    {"name": "balance", "datatype": dbt_utils.type_int()},
+    {"name": "balance", "datatype": dbt_utils.type_float()},
     {"name": "paid", "datatype": dbt_utils.type_int()},
     {"name": "total", "datatype": dbt_utils.type_int()},
     {"name": "subtotal", "datatype": dbt_utils.type_int()},

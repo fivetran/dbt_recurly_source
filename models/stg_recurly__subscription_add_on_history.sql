@@ -30,7 +30,7 @@ final as (
         plan_add_on_id,
         quantity,
         subscription_id,
-        unit_amount,
+        cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount,
         updated_at
     from fields
 )

@@ -32,7 +32,7 @@ final as (
         TYPE,
         origin,
         UPPER(currency) as currency,
-        amount,
+        cast(amount as {{ dbt_utils.type_float() }}) as amount,
         status,
         success as is_successful,
         refunded as is_refunded,

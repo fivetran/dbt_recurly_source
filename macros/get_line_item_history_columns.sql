@@ -26,7 +26,7 @@
     {"name": "quantity", "datatype": dbt_utils.type_int()},
     {"name": "unit_amount", "datatype": dbt_utils.type_int()},
     {"name": "subtotal", "datatype": dbt_utils.type_int()},
-    {"name": "discount", "datatype": dbt_utils.type_int()},
+    {"name": "discount", "datatype": dbt_utils.type_float()},
     {"name": "tax", "datatype": dbt_utils.type_int()},
     {"name": "taxable", "datatype": "boolean"},
     {"name": "tax_exempt", "datatype": "boolean"},

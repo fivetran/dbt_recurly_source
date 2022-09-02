@@ -45,7 +45,7 @@ seeds:
     coupon_discount_data:
       amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     invoice_history_data:
-      amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      balance: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     line_item_history_data:
       discount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     plan_currency_history_data:

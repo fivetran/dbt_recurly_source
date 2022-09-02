@@ -42,7 +42,7 @@ final as (
         UPPER(currency) as currency,
         amount,
         quantity,
-        unit_amount,
+        cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount,
         subtotal,
         discount,
         tax,

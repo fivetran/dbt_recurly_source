@@ -23,7 +23,7 @@ final as (
         account_id,
         _fivetran_synced,
         account_updated_at,
-        amount,
+        cast(amount as {{ dbt_utils.type_float() }}) as amount,
         currency,
         past_due
     from fields

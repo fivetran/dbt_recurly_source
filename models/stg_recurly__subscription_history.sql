@@ -45,7 +45,7 @@ final as (
         auto_renew as has_auto_renew,
         remaining_pause_cycles,
         UPPER(currency) as currency,
-        unit_amount,
+        cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount,
         quantity,
         add_ons_total,
         subtotal,
