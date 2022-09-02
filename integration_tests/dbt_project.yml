@@ -55,8 +55,7 @@ seeds:
         subtotal: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
         refundable_amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
         discount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
-        tax: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
-        tax_rate: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        tax: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}" 
     line_item_history_data:
       +column_types:
         discount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
@@ -64,8 +63,6 @@ seeds:
         subtotal: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
         discount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
         tax: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
-        tax_rate: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
-        proration_rate: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
         credit_applied: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     plan_currency_history_data:
       +column_types:
