@@ -32,7 +32,7 @@ dispatch:
 seeds:
   recurly_source_integration_tests:
     account_balance_history_data:
-      amount: float 
+      amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     credit_payment_history_data:
       id: string
       account_id: string
@@ -41,25 +41,25 @@ seeds:
       refund_transaction_id: string
       original_credit_payment_id: string
       uuid: string
-      amount: float
+      amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     coupon_discount_data:
-      amount: float
+      amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     invoice_history_data:
-      amount: float
+      amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     line_item_history_data:
-      discount: float
+      discount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     plan_currency_history_data:
-      unit_amount: float
+      unit_amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     subscription_add_on_history_data:
-      unit_amount: float
+      unit_amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     subscription_change_history_data:
       id: string
       plan_id: string
       subscription_id: string
       object: string
-      unit_amount: integer
+      unit_amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
       quantity: integer
     subscription_history_data:
-      unit_amount: float
+      unit_amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     transaction_data:
-      amount: float
+      amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
