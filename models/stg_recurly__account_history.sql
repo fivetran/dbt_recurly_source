@@ -35,7 +35,7 @@ final as (
         account_country,
         created_at,
         updated_at,
-        deleted_at,
+        deleted_at
     from
         fields
 )
