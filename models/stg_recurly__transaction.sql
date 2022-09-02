@@ -28,7 +28,7 @@ final as (
         account_id,
         invoice_id,
         voided_by_invoice_id,
-        uuid 
+        uuid, 
         TYPE,
         origin,
         UPPER(currency) as currency,
