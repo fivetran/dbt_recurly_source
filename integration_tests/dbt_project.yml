@@ -31,6 +31,8 @@ dispatch:
 
 seeds:
   recurly_source_integration_tests:
+    account_balance_history_data:
+      amount: float 
     credit_payment_history_data:
       id: string
       account_id: string
@@ -40,6 +42,16 @@ seeds:
       original_credit_payment_id: string
       uuid: string
       amount: float
+    coupon_discount_data:
+      amount: float
+    invoice_history_data:
+      amount: float
+    line_item_history_data:
+      discount: float
+    plan_currency_history_data:
+      unit_amount: float
+    subscription_add_on_history_data:
+      unit_amount: float
     subscription_change_history_data:
       id: string
       plan_id: string
@@ -47,3 +59,7 @@ seeds:
       object: string
       unit_amount: integer
       quantity: integer
+    subscription_history_data:
+      unit_amount: float
+    transaction_data:
+      amount: float
