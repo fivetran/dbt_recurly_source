@@ -50,11 +50,26 @@ seeds:
     invoice_history_data:
       +column_types:
         balance: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        paid: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        total: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        subtotal: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        refundable_amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        discount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        tax: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        tax_rate: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     line_item_history_data:
       +column_types:
         discount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        unit_amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        subtotal: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        discount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        tax: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        tax_rate: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        proration_rate: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        credit_applied: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     plan_currency_history_data:
       +column_types:
+        setup_fees: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
         unit_amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     subscription_add_on_history_data:
       +column_types:
@@ -70,6 +85,8 @@ seeds:
     subscription_history_data:
       +column_types:
         unit_amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        add_ons_total: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+        subtotal: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
     transaction_data:
       +column_types:
         amount: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
