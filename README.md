@@ -1,3 +1,4 @@
+ 
 # Recurly Source dbt package ([Docs](https://fivetran.github.io/dbt_recurly_source/))
 
 # 📣 What does this dbt package do?
@@ -27,7 +28,7 @@ Include the following recurly_source package version in your `packages.yml` file
 packages:
   - package: fivetran/recurly_source
     version: [">=0.1.0", "<0.2.0"]
-
+ 
 ## Step 3: Define database and schema variables
 By default, this package runs using your destination and the `recurly` schema. If this is not where your recurly data is (for example, if your recurly schema is named `recurly_fivetran`), add the following configuration to your root `dbt_project.yml` file:
 
@@ -38,14 +39,14 @@ vars:
 ```
 
 ## Step 4: Disable models for non-existent sources
-Your Recurly connector may not be syncing all tabes that this package references. This might be because you are excluding those tables. If you are not using those tables, you can disable the corresponding functionality in the package by specifying the variable in your dbt_project.yml. By default, all packages are assumed to be true. You only have to add variables for tables you want to disable, like so:
+Your Recurly connector may not be syncing all tabes that this package references. This might be because you are excluding those tables. If you are not using those tables, you can disable the corresponding functionality in the package by specifying the variable in your dbt_project.yml. By default, all packages are assumed to be true. You only have to add variables for tables you want to disable, like so: 
 
 ```yml
-# dbt_project.yml
-
-...
-config-version: 2
-
+# dbt_project.yml 
+ 
+... 
+config-version: 2 
+ 
 vars:
   recurly__using_credit_payment_history: false # Disable if you do not have the credit_payment_history table
   recurly__using_subscription_add_on_history: false # Disable if you do not have the subscription_add_on_history table
@@ -102,8 +103,8 @@ packages:
 ## Package Maintenance
 The Fivetran team maintaining this package _only_ maintains the latest version of the package. We highly recommend that you stay consistent with the [latest version](https://hub.getdbt.com/fivetran/recurly_source/latest/) of the package and refer to the [CHANGELOG](https://github.com/fivetran/dbt_recurly_source/blob/main/CHANGELOG.md) and release notes for more information on changes across versions.
 
-## Opinionated Decisions
-In creating this package, which is meant for a wide range of use cases, we had to take opinionated stances on a few different questions we came across during development. We've consolidated significant choices we made in the [DECISIONLOG.md](https://github.com/fivetran/dbt_recurly_source/blob/main/DECISIONLOG.md), and will continue to update as the package evolves. We are always open to and encourage feedback on these choices, and the package in general.
+## Opinionated Decisions 
+In creating this package, which is meant for a wide range of use cases, we had to take opinionated stances on a few different questions we came across during development. We've consolidated significant choices we made in the [DECISIONLOG.md](https://github.com/fivetran/dbt_recurly_source/blob/main/DECISIONLOG.md), and will continue to update as the package evolves. We are always open to and encourage feedback on these choices, and the package in general. 
 
 ## Contributions
 A small team of analytics engineers at Fivetran develops these dbt packages. However, the packages are made better by community contributions! 
