@@ -22,8 +22,8 @@ final as (
         transaction_id,
         _fivetran_synced,
         subscription_id
-    from
-        fields
+    from 
+        fields 
 )
 select *
 from final

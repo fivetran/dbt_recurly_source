@@ -820,7 +820,7 @@ models:
         description: The values in this field will vary from gateway to gateway.
 
 
-  # - name: stg_recurly__account_latest
+  # - name: stg_recurly__account_latest 
   #   description: >
   #     The account object stores the latest Recurly status of your customer and 
   #     acts as the entry point for working with a customer's billing information, subscription data, transactions, invoices and more. 

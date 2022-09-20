@@ -25,8 +25,8 @@ final as (
         _fivetran_synced,
         invoice_updated_at,
         subscription_id
-    from
-        fields
+    from 
+        fields 
 )
 select *
 from final

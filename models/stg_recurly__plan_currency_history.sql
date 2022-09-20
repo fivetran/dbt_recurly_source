@@ -25,8 +25,8 @@ final as (
         currency,
         setup_fees,
         cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount
-    from
-        fields
+    from 
+        fields 
 )
 select *
 from final

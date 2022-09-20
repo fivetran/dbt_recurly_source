@@ -38,8 +38,8 @@ final as (
         setup_fee_accounting_code,
         tax_code,
         tax_exempt
-    from
-        fields
+    from 
+        fields 
 )
 select *
 from final

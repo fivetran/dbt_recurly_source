@@ -39,7 +39,7 @@ final as (
         state,
         origin,
         product_code,
-        UPPER(currency) as currency,
+        UPPER(currency) as currency, 
         amount,
         quantity,
         cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount,
@@ -58,8 +58,8 @@ final as (
         credit_applied,
         start_date as started_at,
         end_date as ended_at
-    from
-        fields
+    from 
+        fields 
 )
 select *
 from final

@@ -34,7 +34,7 @@ final as (
         collection_method,
         po_number,
         net_terms,
-        UPPER(currency) as currency,
+        UPPER(currency) as currency, 
         cast(balance as {{ dbt_utils.type_float() }}) as balance,
         paid,
         total,

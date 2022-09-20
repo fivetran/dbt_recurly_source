@@ -44,7 +44,7 @@ final as (
         renewal_billing_cycles,
         auto_renew as has_auto_renew,
         remaining_pause_cycles,
-        UPPER(currency) as currency,
+        UPPER(currency) as currency, 
         cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount,
         quantity,
         add_ons_total,
@@ -52,8 +52,8 @@ final as (
         collection_method,
         expiration_reason,
         started_with_gift as has_started_with_gift 
-    from
-        fields
+    from 
+        fields 
 )
 select *
 from final

@@ -31,7 +31,7 @@ final as (
         uuid, 
         TYPE,
         origin,
-        UPPER(currency) as currency,
+        UPPER(currency) as currency, 
         cast(amount as {{ dbt_utils.type_float() }}) as amount,
         status,
         success as is_successful,
@@ -60,8 +60,8 @@ final as (
         payment_gateway_type,
         payment_gateway_name,
         gateway_response_values
-    from
-        fields
+    from 
+        fields 
 )
 select *
 from final
