@@ -22,20 +22,19 @@ fields as (
 final as (
     
     select 
-        id as credit_payment_id,
-        _fivetran_synced,
-        updated_at,
-        account_id,
-        applied_to_invoice_id,
-        original_invoice_id,
-        refund_transaction_id,
-        original_credit_payment_id,
-        uuid,
-        action,
-        currency,
-        cast(amount as {{ dbt_utils.type_float() }}) as amount,
-        created_at,
-        voided_at
+        id as credit_payment_id
+        , cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at
+        , account_id
+        , applied_to_invoice_id
+        , original_invoice_id
+        , refund_transaction_id
+        , original_credit_payment_id
+        , uuid
+        , action
+        , currency
+        , cast(amount as {{ dbt_utils.type_float() }}) as amount
+        , cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at
+        , cast(voided_at as {{ dbt_utils.type_timestamp() }}) as voided_at
     from fields
 ) 
 

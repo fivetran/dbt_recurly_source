@@ -150,6 +150,8 @@ sources:
       - name: credit_payment_history
         description: A history of outstanding credit balance to pay an invoice, but does include the record of write-offs, credit balance removals, and credit payments later refunded as cash transaction.
         identifier: "{{ var('credit_payment_history_identifier', 'credit_payment_history') }}"
+        config:
+          enabled: "{{ var('credit_payment_history_identifier', true) }}"
         columns:
           - name: id
           - name: _fivetran_synced
@@ -481,6 +483,8 @@ sources:
       - name: subscription_add_on_history
         description: History of subscription add-ons to a particular plan. 
         identifier: "{{ var('subscription_add_on_history_identifier', 'subscription_add_on_history') }}"
+        config:
+          enabled: "{{ var('subscription_add_on_history_identifier', true) }}"
         columns:
           - name: id
           - name: _fivetran_synced
@@ -496,6 +500,8 @@ sources:
       - name: subscription_change_history
         description: History of subscription changes, particularly upgrades and downgrades, but also changes to how subscription is invoiced.
         identifier: "{{ var('subscription_change_history_identifier', 'subscription_change_history') }}"
+        config:
+          enabled: "{{ var('subscription_change_history_identifier', true) }}"
         columns:
           - name: id
           - name: _fivetran_synced

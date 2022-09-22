@@ -20,10 +20,9 @@ fields as (
 final as (
     
     select 
-        coupon_redemption_id,
-        _fivetran_synced,
-        invoice_id,
-        invoice_updated_at
+        coupon_redemption_id
+        , invoice_id
+        , cast(invoice_updated_at as {{ dbt_utils.type_timestamp() }}) as invoice_updated_at
     from fields
 )
 

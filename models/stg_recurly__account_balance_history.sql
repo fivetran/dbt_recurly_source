@@ -20,12 +20,11 @@ fields as (
 final as (
     
     select 
-        account_id,
-        _fivetran_synced,
-        account_updated_at,
-        cast(amount as {{ dbt_utils.type_float() }}) as amount,
-        currency,
-        past_due
+        account_id
+        , account_updated_at
+        , cast(amount as {{ dbt_utils.type_float() }}) as amount
+        , currency
+        , past_due
     from fields
 )
 

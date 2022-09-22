@@ -25,12 +25,6 @@ vars:
     transaction: "{{ source('recurly', 'transaction') }}"
     transaction_subscription: "{{ source('recurly', 'transaction_subscription') }}"
 
-    #Variables if your company utilizes the below tables.
-    using_credit_payment_history: false 
-    using_subscription_add_on_history: false
-    using_subscription_change_history: false 
-
-
 models:
   recurly_source:
     +schema: recurly_source

@@ -20,15 +20,14 @@ fields as (
 final as (
     
     select 
-        coupon_id,
-        _fivetran_synced,
-        cast(amount as {{ dbt_utils.type_float() }}) as amount,
-        currency,
-        fivetran_id,
-        percentage,
-        trial_length,
-        trial_unit,
-        type
+        coupon_id
+        , cast(amount as {{ dbt_utils.type_float() }}) as amount
+        , currency
+        , fivetran_id
+        , percentage
+        , trial_length
+        , trial_unit
+        , type
     from fields
 )
 

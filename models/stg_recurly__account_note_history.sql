@@ -20,15 +20,14 @@ fields as (
 final as (
     
     select 
-        id as account_note_id,
-        _fivetran_synced,
-        account_id,
-        account_updated_at,
-        created_at,
-        message,
-        object,
-        user_email,
-        user_id
+        id as account_note_id 
+        , account_id
+        , cast(account_updated_at as {{ dbt_utils.type_timestamp() }}) as account_updated_at
+        , cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at
+        , message
+        , object
+        , user_email
+        , user_id
     from fields
 )
 

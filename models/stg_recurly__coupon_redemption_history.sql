@@ -20,16 +20,15 @@ fields as (
 final as (
     
     select 
-        id as coupon_redemption_id,
-        _fivetran_synced,
-        account_id,
-        coupon_id,
-        created_at,
-        currency,
-        discounted,
-        removed_at,
-        state,
-        updated_at
+        id as coupon_redemption_id 
+        , account_id
+        , coupon_id
+        , cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at
+        , currency
+        , discounted
+        , cast(removed_at as {{ dbt_utils.type_timestamp() }}) as removed_at
+        , state
+        , cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at
     from fields
 )
 
