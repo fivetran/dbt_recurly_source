@@ -7,10 +7,12 @@ with base as (
 fields as (
 
     select 
-        {{ fivetran_utils.fill_staging_columns(
-            source_columns = adapter.get_columns_in_relation(ref('stg_recurly__subscription_history_tmp')),
-            staging_columns = get_subscription_history_columns()
-        ) }}
+        {{ 
+            fivetran_utils.fill_staging_columns(
+                source_columns = adapter.get_columns_in_relation(ref('stg_recurly__subscription_history_tmp')),
+                staging_columns = get_subscription_history_columns()
+            ) 
+        }}
     from base
 ),
 
@@ -18,24 +20,24 @@ final as (
 
     select  
         id as subscription_id
-        , created_at
-        , updated_at
-        , activated_at
-        , canceled_at
-        , expires_at
-        , paused_at
-        , converted_at
+        , cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at
+        , cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at
+        , cast(activated_at as {{ dbt_utils.type_timestamp() }}) as activated_at
+        , cast(canceled_at as {{ dbt_utils.type_timestamp() }}) as canceled_at
+        , cast(expires_at as {{ dbt_utils.type_timestamp() }}) as expires_at
+        , cast(paused_at as {{ dbt_utils.type_timestamp() }}) as paused_at
+        , cast(converted_at as {{ dbt_utils.type_timestamp() }}) as converted_at
         , account_id
         , plan_id
         , object
         , uuid
         , state
-        , current_period_started_at
-        , current_period_ends_at as current_period_ended_at
-        , current_term_started_at
-        , current_term_ends_at as current_term_ended_at
-        , trial_started_at
-        , trial_ends_at
+        , cast(current_period_started_at as {{ dbt_utils.type_timestamp() }}) as current_period_started_at
+        , cast(current_period_ends_at as {{ dbt_utils.type_timestamp() }}) as current_period_ended_at
+        , cast(current_term_started_at as {{ dbt_utils.type_timestamp() }}) as current_term_started_at
+        , cast(current_term_ends_at as {{ dbt_utils.type_timestamp() }}) as current_term_ended_at
+        , cast(trial_started_at as {{ dbt_utils.type_timestamp() }}) as trial_started_at
+        , cast(trial_ends_at as {{ dbt_utils.type_timestamp() }}) as trial_ends_at
         , remaining_billing_cycles
         , total_billing_cycles
         , renewal_billing_cycles

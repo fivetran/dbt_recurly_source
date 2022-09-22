@@ -21,7 +21,7 @@ final as (
     
     select 
         account_id
-        , account_updated_at
+        , cast(account_updated_at as {{ dbt_utils.type_timestamp() }}) as account_updated_at
         , cast(amount as {{ dbt_utils.type_float() }}) as amount
         , currency
         , past_due

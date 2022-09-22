@@ -7,10 +7,12 @@ with base as (
 fields as (
 
     select 
-        {{ fivetran_utils.fill_staging_columns(
-            source_columns = adapter.get_columns_in_relation(ref('stg_recurly__line_item_history_tmp')),
-            staging_columns = get_line_item_history_columns()
-        ) }}
+        {{ 
+            fivetran_utils.fill_staging_columns(
+                source_columns = adapter.get_columns_in_relation(ref('stg_recurly__line_item_history_tmp')),
+                staging_columns = get_line_item_history_columns()
+            ) 
+        }}
     from base
 ),
 
@@ -20,7 +22,7 @@ final as (
         id as line_item_id 
         , description
         , cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at
-        , updated_at
+        , cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at
         , account_id
         , plan_id
         , plan_code
@@ -53,8 +55,8 @@ final as (
         , refund as has_refund
         , refunded_quantity
         , credit_applied
-        , start_date as started_at
-        , end_date as ended_at
+        , cast(start_date as {{ dbt_utils.type_timestamp() }}) as started_at
+        , cast(end_date as {{ dbt_utils.type_timestamp() }}) as ended_at
     from fields
 )
 

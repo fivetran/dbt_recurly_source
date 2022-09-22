@@ -7,10 +7,12 @@ with base as (
 fields as (
 
     select 
-        {{ fivetran_utils.fill_staging_columns(
-            source_columns = adapter.get_columns_in_relation(ref('stg_recurly__transaction_subscription_tmp')),
-            staging_columns = get_transaction_subscription_columns()
-        ) }}
+        {{ 
+            fivetran_utils.fill_staging_columns(
+                source_columns = adapter.get_columns_in_relation(ref('stg_recurly__transaction_subscription_tmp')),
+                staging_columns = get_transaction_subscription_columns()
+            ) 
+        }}
     from base
 
 ),
