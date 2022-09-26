@@ -20,11 +20,11 @@ fields as (
 final as (
     
     select 
-        account_id
-        , cast(account_updated_at as {{ dbt_utils.type_timestamp() }}) as account_updated_at
-        , cast(amount as {{ dbt_utils.type_float() }}) as amount
-        , currency
-        , past_due
+        account_id, 
+        cast(account_updated_at as {{ dbt_utils.type_timestamp() }}) as account_updated_at,
+        cast(amount as {{ dbt_utils.type_float() }}) as amount,
+        currency,
+        past_due
     from fields
 )
 

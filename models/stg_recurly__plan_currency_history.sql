@@ -19,11 +19,11 @@ fields as (
 final as (
 
     select
-        plan_id
-        , cast(plan_updated_at as {{ dbt_utils.type_timestamp() }}) as plan_updated_at
-        , currency
-        , setup_fees
-        , cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount
+        plan_id,
+        cast(plan_updated_at as {{ dbt_utils.type_timestamp() }}) as plan_updated_at,
+        currency,
+        setup_fees,
+        cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount
     from fields
 )
 

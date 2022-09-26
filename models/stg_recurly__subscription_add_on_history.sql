@@ -1,5 +1,5 @@
 --To disable this model, set the using_subscription_add_on_history variable within your dbt_project.yml file to False.
-{{ config(enabled=var('using_subscription_add_on_history', True)) }}
+{{ config(enabled=var('recurly__using_subscription_add_on_history', true)) }}
 
 with base as (
 
@@ -22,7 +22,7 @@ fields as (
 final as (
     
     select 
-        id as subscription_id
+        id as subscription_add_on_id
         , cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at
         , cast(expired_at as {{ dbt_utils.type_timestamp() }}) as expired_at
         , object

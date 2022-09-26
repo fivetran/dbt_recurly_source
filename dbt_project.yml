@@ -23,7 +23,7 @@ vars:
     subscription_change_history: "{{ source('recurly', 'subscription_change_history') }}"
     subscription_history: "{{ source('recurly', 'subscription_history') }}"
     transaction: "{{ source('recurly', 'transaction') }}"
-    transaction_subscription: "{{ source('recurly', 'transaction_subscription') }}"
+    transaction_subscription: "{{ source('recurly', 'transaction_subscription') }}" 
 
 models:
   recurly_source:
@@ -31,3 +31,4 @@ models:
     materialized: table
     tmp:
       materialized: view
+

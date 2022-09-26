@@ -20,8 +20,8 @@ fields as (
 final as (
 
     select
-        transaction_id 
-        , subscription_id
+        transaction_id, 
+        subscription_id
     from fields
 )
 

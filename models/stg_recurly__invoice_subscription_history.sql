@@ -19,9 +19,9 @@ fields as (
 final as (
 
     select
-        invoice_id
-        , cast(invoice_updated_at as {{ dbt_utils.type_timestamp() }}) as invoice_updated_at
-        , subscription_id
+        invoice_id,
+        cast(invoice_updated_at as {{ dbt_utils.type_timestamp() }}) as invoice_updated_at,
+        subscription_id
     from fields
 )
 select *

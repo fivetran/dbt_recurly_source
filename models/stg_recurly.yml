@@ -547,7 +547,7 @@ models:
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
-            - subscription_id
+            - subscription_add_on_id
             - updated_at
 
     columns:
@@ -573,7 +573,7 @@ models:
             - updated_at
 
     columns:
-      - name: subscription_id
+      - name: subscription_change_id
         tests:
           - not_null
           - unique
