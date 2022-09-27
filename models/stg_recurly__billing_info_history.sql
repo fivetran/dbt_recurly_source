@@ -19,25 +19,25 @@ final as (
 
     select
         id as billing_id, 
-        cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at, 
         cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at,
         account_id,
-        first_name,
-        last_name,
-        company,
-        vat_number,
+        billing_city,
+        billing_country,
         billing_phone,
+        billing_postal_code,
+        billing_region,
         billing_street_1,
         billing_street_2,
-        billing_city,
-        billing_region,
-        billing_postal_code,
-        billing_country,
-        updated_by_ip,
-        updated_by_country,
-        payment_method_object,
-        payment_method_card_type,
+        company,
+        cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at, 
+        first_name,
         valid as is_valid
+        last_name,
+        payment_method_card_type,
+        payment_method_object,
+        updated_by_country,
+        updated_by_ip,
+        vat_number
     from fields
 )
 
