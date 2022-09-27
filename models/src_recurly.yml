@@ -315,7 +315,7 @@ sources:
           - name: currency
             description: 3-letter ISO 4217 currency code.
           - name: customer_notes
-            description: 
+            description: Notes section available for any details account wants to add.
           - name: discount
             description: Total discounts applied to this invoice.
           - name: due_at
@@ -652,8 +652,6 @@ sources:
       - name: subscription_change_history
         identifier: "{{ var('subscription_change_history_identifier', 'subscription_change_history') }}"
         description: History of subscription changes, particularly upgrades and downgrades, but also changes to how subscription is invoiced.
-        config:
-          enabled: "{{ var('recurly__using_subscription_change_history', true) }}"
         columns:
           - name: id 
             description: Unique identifier for subscription change.
@@ -662,7 +660,7 @@ sources:
           - name: activated
             description: Is the subscription change currently active?
           - name: created_at
-            description: WHen the subscription was last created.
+            description: When the subscription was last created.
           - name: deleted_at
             description: When subscription was rendered to be inactive.
           - name: object
@@ -670,9 +668,9 @@ sources:
           - name: plan_id
             description: Plan id associated with subscription change.
           - name: quantity
-            description: Quantity of subscriptions changed
+            description: Quantity of subscriptions changed.
           - name: subscription_id
-            description: subscription ID associated with subscription change.
+            description: Subscription ID associated with subscription change.
           - name: unit_amount
             description: Amount of one unit subscription.
           - name: updated_at

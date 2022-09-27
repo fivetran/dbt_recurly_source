@@ -23,15 +23,15 @@ final as (
     select 
         id as subscription_change_id, 
         cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at, 
-        plan_id,
-        subscription_id,
-        object,
-        unit_amount,
-        quantity,
         cast(activate_at as {{ dbt_utils.type_timestamp() }}) as activate_at,
-        activated,
+        activated, 
         cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at,
-        cast(deleted_at as {{ dbt_utils.type_timestamp() }}) as deleted_at
+        cast(deleted_at as {{ dbt_utils.type_timestamp() }}) as deleted_at,
+        object,
+        plan_id,
+        quantity,
+        subscription_id,
+        unit_amount
     from fields
 ) 
 

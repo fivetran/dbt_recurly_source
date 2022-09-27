@@ -31,7 +31,7 @@ final as (
         company,
         cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at, 
         first_name,
-        valid as is_valid
+        valid as is_valid,
         last_name,
         payment_method_card_type,
         payment_method_object,

@@ -162,8 +162,18 @@ models:
 
 
   - name: stg_recurly__coupon_discount
-    description: Coupon details and the discounts set for customer purchases.    
+    description: Coupon details and the discounts set for customer purchases.   
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - fivetran_id
+            - coupon_id 
+
     columns:
+      - name: fivetran_id
+        description: Combined unique surrogate key for the model.
+        tests:
+          - not_null
       - name: coupon_id
         description: Coupon details and the discounts set for customer purchases.
         tests:
@@ -172,8 +182,6 @@ models:
         description: Fixed amount discount being applied, if applicable. Percentage would be null if amount exists. 
       - name: currency
         description: 3-letter ISO 4217 currency code (USD for US Dollar).
-      - name: fivetran_id
-        description: Combined unique surrogate key for the model.
       - name: percentage
         description: Percentage discount being applied, if applicable. Amount would be null if percentage exists. 
       - name: trial_length
@@ -552,62 +560,62 @@ models:
         description: Unique identifier for the object.
         tests:
           - not_null
-      - name: _fivetran_synced
+      - name: updated_at
+        description: When the plan was last updated.
+      - name: accounting_code
+        description: Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
       - name: code
         description: Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
       - name: created_at
         description: When the plan was created.
-      - name: updated_at
-        description: When the plan was updated.
       - name: deleted_at
         description: When the plan was deleted.
-      - name: state
-        description: >
-          The current state of the plan.
-          Enum: "active", "inactive"
-      - name: name
-        description: This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
       - name: description
         description: Optional description, not displayed.
-      - name: interval_unit
-        description: >
-          Unit for the plan's billing interval.
-          Default: "months"
-          Enum: "days", "months"
-      - name: interval_length
-        description: >
-          Length of the plan's billing interval in interval_unit.
-          Default: 1
-      - name: trial_unit
-        description: >
-          Units for the plan's trial period.
-          Default: "months"
-          Enum: "days", "months"
-      - name: trial_length
-        description: >
-          Length of plan's trial period in trial_units. 0 means no trial.
-          Default: 0
-      - name: total_billing_cycles
-        description: >
-          Automatically terminate subscriptions after a defined number of billing cycles. 
-          Number of billing cycles before the plan automatically stops renewing, defaults to null for continuous, automatic renewal.
-      - name: auto_renew
+      - name: has_auto_renew
         description: >
           Subscriptions will automatically inherit this value once they are active. 
           If auto_renew is true, then a subscription will automatically renew its term at renewal. 
           If auto_renew is false, then a subscription will expire at the end of its term. 
           auto_renew can be overridden on the subscription record itself.
           Default: true
-      - name: accounting_code
-        description: Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
+      - name: interval_length
+        description: >
+          Length of the plan's billing interval in interval_unit.
+          Default: 1
+      - name: interval_unit
+        description: >
+          Unit for the plan's billing interval.
+          Default: "months"
+          Enum: "days", "months"
+      - name: name
+        description: This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
       - name: setup_fee_accounting_code
         description: Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
-      - name: plan_tax_code
+      - name: state
+        description: >
+          The current state of the plan.
+          Enum: "active", "inactive"
+      - name: tax_code
         description: >
           Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. 
           If you are using Recurly’s EU VAT feature you can use unknown, physical, or digital.
-      - name: plan_tax_exempt
+      - name: tax_exempt
         description: true exempts tax on the plan, false applies tax on the plan.
+      - name: total_billing_cycles
+        description: >
+          Automatically terminate subscriptions after a defined number of billing cycles. 
+          Number of billing cycles before the plan automatically stops renewing, defaults to null for continuous, automatic renewal.
+      - name: trial_length
+        description: >
+          Length of plan's trial period in trial_units. 0 means no trial.
+          Default: 0
+      - name: trial_unit
+        description: >
+          Units for the plan's trial period.
+          Default: "months"
+          Enum: "days", "months"
+
 
   - name: stg_recurly__subscription_add_on_history
     description: History of subscription add-ons to a particular plan. 
@@ -618,43 +626,60 @@ models:
             - updated_at
 
     columns:
-      - name: subscription_id
+      - name: subscription_add_on_id
+        description: Unique identifier for subscription add-on. 
         tests:
           - not_null
-      - name: _fivetran_synced
       - name: updated_at
-      - name: subscription_id
-      - name: plan_add_on_id
-      - name: object
-      - name: unit_amount
-      - name: quantity
+        description: The date/time the add-on was last modified.
       - name: created_at
+        description: The date/time the add-on was last created.
       - name: expired_at
+        description: Date and time the subscription was/ will churn.
+      - name: object
+        description: Object type of subscription add-on.
+      - name: plan_add_on_id
+        description: Plan add-on ID associated with subscription add-on ID.
+      - name: quantity
+        description: Number of add-ons added to the subscription. 
+      - name: subscription_id
+        description: Subscription ID associated with add-on.
+      - name: unit_amount
+        description: Amount of one unit of the add-on.
 
   - name: stg_recurly__subscription_change_history
     description: History of subscription changes, particularly upgrades and downgrades, but also changes to how subscription is invoiced.
     tests:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
-            - subscription_id
+            - subscription_change_id
             - updated_at
 
     columns:
       - name: subscription_change_id
+        description: Unique identifier for subscription change.
         tests:
-          - not_null
-          - unique
-      - name: _fivetran_synced
+          - not_null 
       - name: updated_at
-      - name: plan_id
-      - name: subscription_id
-      - name: object
-      - name: unit_amount
-      - name: quantity
+        description: Last modification of subscription change.
       - name: activate_at
+        description: Date at which subscription changes.
       - name: activated
+        description: Is the subscription change currently active?
       - name: created_at
+        description: When the subscription was last created.
       - name: deleted_at
+        description: When subscription was rendered to be inactive.
+      - name: object
+        description: Object type of subscription change.
+      - name: plan_id
+        description: Plan id associated with subscription change.
+      - name: quantity
+        description: Quantity of subscriptions changed.
+      - name: subscription_id
+        description: Subscription ID associated with subscription change.
+      - name: unit_amount
+        description: Amount of one unit subscription.
       
   - name: stg_recurly__subscription_history
     description: >
@@ -671,88 +696,87 @@ models:
       - name: subscription_id
         description: Unique identifier for the subscription.
         tests:
-          - not_null
-      - name: _fivetran_synced
-      - name: created_at
-        description: When the subscription was created.
+          - not_null 
       - name: updated_at
         description: When the subscription was updated.
+      - name: account_id
+        description: The account this subscription belongs to. 
       - name: activated_at
-        description: When the subscription was activated.
+        description: When the subscription was activated.       
+      - name: add_ons_total
+        description: Total price of add-ons. Greater or equal to 0.
       - name: canceled_at
         description: When the subscription was canceled. Can take future dates.
-      - name: expires_at
-        description: When the subscription has expired. Can take future dates.
-      - name: paused_at
-        description: When the subscription will/has paused. Can take future dates.
+      - name: collection_method
+        description: >
+          Default: "automatic"
+          Enum: "automatic", "manual"
       - name: converted_at
         description: When the subscription has converted from trial.
-      - name: account_id
-        description: The account this subscription belongs to.
-      - name: plan_id
-        description: The plan this subscription belongs to.
-      - name: object
-        description: The object type, in this case only "subscription"
-      - name: uuid
-        description: The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
-      - name: state
-        description: >
-          The current state of the subscription.
-          Enum: "active", "canceled", "expired", "failed", "future", "paused"
-      - name: current_period_started_at
-        description: Current billing period started at.
+      - name: created_at
+        description: When the subscription was created.
+      - name: currency
+        description: 3-letter ISO 4217 currency code.
       - name: current_period_ended_at
         description: Current billing period ends at.
+      - name: current_period_started_at
+        description: Current billing period started at.
+      - name: current_term_ended_at
+        description: >
+          When the term ends. This is calculated by a plan's interval and total_billing_cycles in a term. 
+          Subscription changes with a timeframe=renewal will be applied on this date.      
       - name: current_term_started_at
         description: >
           The start date of the term when the first billing period starts. 
           The subscription term is the length of time that a customer will be committed to a subscription. 
           A term can span multiple billing periods.
-      - name: current_term_ended_at
+      - name: expiration_reason
+        description: Reason for subscription expiration.
+      - name: expires_at
+        description: When the subscription has expired. Can take future dates.
+      - name: has_auto_renew
         description: >
-          When the term ends. This is calculated by a plan's interval and total_billing_cycles in a term. 
-          Subscription changes with a timeframe=renewal will be applied on this date.
-      - name: trial_started_at
-        description: Trial period started at
-      - name: trial_ends_at
-        description: Trial period ends at
+          Whether the subscription renews at the end of its term.
+          Default: true
+      - name: has_started_with_gift
+        description: Did the subscription start with a gift? Was it paid with at least one gift card credit?
+      - name: object
+        description: The object type, in this case only "subscription"  
+      - name: paused_at
+        description: Null unless subscription is paused or will pause at the end of the current billing period.
+      - name: plan_id
+        description: The plan this subscription belongs to.
+      - name: quantity
+        description: Subscription quantity. Greater or equal to 0.
       - name: remaining_billing_cycles
         description: The remaining billing cycles in the current term.
+      - name: remaining_pause_cycles
+        description: Null unless subscription is paused or will pause at the end of the current billing period.
+      - name: remaining_pause_cycles
+        description: Null unless subscription is paused or will pause at the end of the current billing period.
+      - name: renewal_billing_cycles
+        description: >
+          If auto_renew=true, when a term completes, total_billing_cycles takes this value as the length of subsequent terms. 
+          Defaults to the plan's total_billing_cycles.
+      - name: state
+        description: >
+          The current state of the subscription.
+          Enum: "active", "canceled", "expired", "failed", "future", "paused"
+      - name: subtotal
+        description: Estimated total, before tax.
       - name: total_billing_cycles
         description: >
           The number of cycles/billing periods in a term. 
           When remaining_billing_cycles=0, if auto_renew=true the subscription will renew and a new term will begin, 
           otherwise the subscription will expire.
-      - name: renewal_billing_cycles
-        description: >
-          If auto_renew=true, when a term completes, total_billing_cycles takes this value as the length of subsequent terms. 
-          Defaults to the plan's total_billing_cycles.
-      - name: auto_renew
-        description: >
-          Whether the subscription renews at the end of its term.
-          Default: true
-      - name: paused_at
-        description: Null unless subscription is paused or will pause at the end of the current billing period.
-      - name: remaining_pause_cycles
-        description: Null unless subscription is paused or will pause at the end of the current billing period.
-      - name: subscription_currency
-        description: 3-letter ISO 4217 currency code.
-      - name: subscription_unit_amount
-        description: Subscription unit price
-      - name: subscription_subtotal
-        description: Estimated total, before tax.
-      - name: subscription_quantity
-        description: Subscription quantity. Greater or equal to 0.
-      - name: add_ons_total
-        description: Total price of add-ons. Greater or equal to 0.
-      - name: subscription_collection_method
-        description: >
-          Default: "automatic"
-          Enum: "automatic", "manual"
-      - name: subscription_expiration_reason
-        description: Expiration reason.
-      - name: subscription_custom_coupon_code
-        description: Coupon code used for subscription.
+      - name: trial_ends_at
+        description: Trial period ends at.
+      - name: trial_started_at
+        description: Trial period started at.
+      - name: unit_amount
+        description: Subscription unit price.
+      - name: uuid
+        description: The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
 
   - name: stg_recurly__transaction_subscription
     description: >
@@ -790,24 +814,86 @@ models:
         description: Unique identifier for the object.
         tests:
           - not_null
-      - name: _fivetran_synced
       - name: created_at
         description: When the transaction was created.
-      - name: voided_at
-        description: When the transaction was voided.
-      - name: collected_at
-        description: When the transaction was collected.
-      - name: original_transaction_id
-        description: If this transaction is a refund (type=refund), this will be the ID of the original transaction on the invoice being refunded.
       - name: account_id
         description: The account_id this transaction belongs to.
+      - name: amount
+        description: Total transaction amount sent to the payment gateway.
+      - name: billing_city
+        description: Billing info - City
+      - name: billing_country
+        description: Billing info - Country, 2-letter ISO code.
+      - name: billing_first_name
+        description: Billing info - First name
+      - name: billing_last_name
+        description: Billing info - Last name
+      - name: billing_phone
+        description: Billing info - Phone
+      - name: billing_postal_code
+        description: Billing info - Zip or postal code.
+      - name: billing_region
+        description: Billing info - State or province.
+      - name: billing_street_1
+        description: Billing info - Address Street 1
+      - name: billing_street_2
+        description: Billing info - Address Street 2
+      - name: collected_at
+        description: When the transaction was collected.
+      - name: collection_method
+        description: >
+          The method by which the payment was collected.
+          Enum: "automatic", "manual"
+      - name: currency
+        description: 3-letter ISO 4217 currency code.
+      - name: customer_message
+        description: For declined (success=false) transactions, the message displayed to the customer.
+      - name: customer_message_locale
+        description: Language code for the message
+      - name: gateway_approval_code
+        description: Transaction approval code from the payment gateway.
+      - name: gateway_message
+        description: Transaction message from the payment gateway.
+      - name: gateway_reference
+        description: Transaction reference number from the payment gateway.
+      - name: gateway_response_code
+        description: For declined transactions (`success=false`), this field lists the gateway error code.
+      - name: gateway_response_time
+        description: Time, in seconds, for gateway to process the transaction.
+      - name: gateway_response_values
+        description: The values in this field will vary from gateway to gateway.
       - name: invoice_id
         description: The invoice_id this transaction belongs to.
-      - name: voided_by_invoice_id
-        description: The invoice_id this transaction was voided.
-      - name: transaction_uuid
-        description: The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
-      - name: transaction_type
+      - name: is_refunded
+        description: Indicates if part or all of this transaction was refunded.
+      - name: is_successful
+        description: Did this transaction complete successfully? True or False
+      - name: origin
+        description: >
+          Describes how the transaction was triggered.
+          Enum: "api", "chargeback", "force_collect", "hpp", "merchant", "recurly_admin", "recurlyjs", "recurring", "refunded_externally", "transparent"
+      - name: original_transaction_id
+        description: If this transaction is a refund (type=refund), this will be the ID of the original transaction on the invoice being refunded.
+      - name: payment_gateway_id
+        description: Payment gateway id
+      - name: payment_gateway_name
+        description: Payment gateway name
+      - name: payment_gateway_type
+        description: Payment gateway type
+      - name: payment_method_object
+        description: >
+          Enum: "amazon", "amazon_billing_agreement", "apple_pay", "bank_account_info", "check", "credit_card", "eft", 
+          "gateway_token", "iban_bank_account", "money_order", "other", "paypal", "paypal_billing_agreement", "roku", 
+          "sepadirectdebit", "wire_transfer"
+      - name: status
+        description: >
+          The current transaction status. Note that the status may change, e.g. a pending transaction may become declined or success may later become void.
+          Enum: "chargeback", "declined", "error", "pending", "processing", "scheduled", "success", "void"
+      - name: status_code
+        description: Status code of the transaction
+      - name: status_message
+        description: For declined (success=false) transactions, the message displayed to the merchant.
+      - name: type
         description: >
           Transaction types:
             authorization – verifies billing information and places a hold on money in the customer's account.
@@ -816,72 +902,22 @@ models:
             refund – returns all or a portion of the money collected in a previous transaction to the customer.
             verify – a $0 or $1 transaction used to verify billing information which is immediately voided.
           Enum: "authorization", "capture", "purchase", "refund", "verify"
-      - name: transaction_origin
-        description: >
-          Describes how the transaction was triggered.
-          Enum: "api", "chargeback", "force_collect", "hpp", "merchant", "recurly_admin", "recurlyjs", "recurring", "refunded_externally", "transparent"
-      - name: transaction_currency
-        description: 3-letter ISO 4217 currency code.
-      - name: transaction_amount
-        description: Total transaction amount sent to the payment gateway.
-      - name: transaction_status
-        description: >
-          The current transaction status. Note that the status may change, e.g. a pending transaction may become declined or success may later become void.
-          Enum: "chargeback", "declined", "error", "pending", "processing", "scheduled", "success", "void"
-      - name: transaction_success
-        description: Did this transaction complete successfully? True or False
-      - name: transaction_refunded
-        description: Indicates if part or all of this transaction was refunded.
-      - name: billing_first_name
-        description: Billing info - First name
-      - name: billing_last_name
-        description: Billing info - Last name
-      - name: billing_phone
-        description: Billing info - Phone
-      - name: billing_street_1
-        description: Billing info - Address Street 1
-      - name: billing_street_2
-        description: Billing info - Address Street 2
-      - name: billing_city
-        description: Billing info - City
-      - name: billing_region
-        description: Billing info - State or province.
-      - name: billing_postal_code
-        description: Billing info - Zip or postal code.
-      - name: billing_country
-        description: Billing info - Country, 2-letter ISO code.
-      - name: collection_method
-        description: >
-          The method by which the payment was collected.
-          Enum: "automatic", "manual"
-      - name: payment_method_object
-        description: >
-          Enum: "amazon", "amazon_billing_agreement", "apple_pay", "bank_account_info", "check", "credit_card", "eft", 
-          "gateway_token", "iban_bank_account", "money_order", "other", "paypal", "paypal_billing_agreement", "roku", 
-          "sepadirectdebit", "wire_transfer"
-      - name: status_code
-        description: Status code of the transaction
-      - name: status_message
-        description: For declined (success=false) transactions, the message displayed to the merchant.
-      - name: customer_message
-        description: For declined (success=false) transactions, the message displayed to the customer.
-      - name: customer_message_locale
-        description: Language code for the message
-      - name: gateway_message
-        description: Transaction message from the payment gateway.
-      - name: gateway_reference
-        description: Transaction reference number from the payment gateway.
-      - name: gateway_approval_code
-        description: Transaction approval code from the payment gateway.
-      - name: gateway_response_code
-        description: For declined transactions (`success=false`), this field lists the gateway error code.
-      - name: gateway_response_time
-        description: Time, in seconds, for gateway to process the transaction.
-      - name: payment_gateway_id
-        description: Payment gateway id
-      - name: payment_gateway_type
-        description: Payment gateway type
-      - name: payment_gateway_name
-        description: Payment gateway name
-      - name: gateway_response_values
-        description: The values in this field will vary from gateway to gateway.
+      - name: uuid
+        description: The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
+      - name: voided_at
+        description: When the transaction was voided.
+      - name: voided_by_invoice_id
+        description: The invoice_id this transaction was voided.
+
+
+
+
+
+
+
+
+
+
+
+
+

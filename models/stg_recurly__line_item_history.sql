@@ -30,7 +30,7 @@ final as (
         currency,
         description,
         discount,
-        cast(end_date as {{ dbt_utils.type_timestamp() }}) as ended_at
+        cast(end_date as {{ dbt_utils.type_timestamp() }}) as ended_at,
         refund as has_refund,
         invoice_id,
         invoice_number,

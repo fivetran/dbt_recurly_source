@@ -20,23 +20,23 @@ final as (
 
     select
         id as plan_id, 
+        cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at,
+        accounting_code,
         code,
         cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at,
-        cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at,
         cast(deleted_at as {{ dbt_utils.type_timestamp() }}) as deleted_at,
-        state,
-        name,
         description,
-        interval_unit,
-        interval_length,
-        trial_unit,
-        trial_length,
-        total_billing_cycles,
         auto_renew as has_auto_renew,
-        accounting_code,
+        interval_length,
+        interval_unit,
+        name,
         setup_fee_accounting_code,
+        state,
         tax_code,
-        tax_exempt
+        tax_exempt,
+        total_billing_cycles,
+        trial_length,
+        trial_unit
     from fields
 )
 
