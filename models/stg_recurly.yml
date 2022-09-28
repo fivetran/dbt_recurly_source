@@ -68,6 +68,8 @@ models:
           This value does not need to be unique.
       - name: first_name
         description: The first name of the customer related to the account.
+      - name: is_most_recent_record
+        description: Is this the most recent record of this account?
       - name: is_tax_exempt
         description: The tax status of the account. true exempts tax on the account, false applies tax on the account.      
       - name: last_name
@@ -78,8 +80,7 @@ models:
         description: A secondary value for the account.
       - name: vat_number
         description: The VAT number of the account (to avoid having the VAT applied). This is only used for manually collected invoices.
-      - name: is_most_recent_record
-        description: Is this the most recent record of this account?
+
 
   - name: stg_recurly__account_note_history
     description: A history of notes your team can leave on an account to add context. Notes are internal and not exposed to customers.
@@ -742,6 +743,8 @@ models:
           Default: true
       - name: has_started_with_gift
         description: Did the subscription start with a gift? Was it paid with at least one gift card credit?
+      - name: is_most_recent_record
+        description: Is this the most recent subscription?
       - name: object
         description: The object type, in this case only "subscription"  
       - name: paused_at
