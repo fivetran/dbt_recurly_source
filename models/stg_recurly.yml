@@ -78,6 +78,8 @@ models:
         description: A secondary value for the account.
       - name: vat_number
         description: The VAT number of the account (to avoid having the VAT applied). This is only used for manually collected invoices.
+      - name: is_most_recent_record
+        description: Is this the most recent record of this account?
 
   - name: stg_recurly__account_note_history
     description: A history of notes your team can leave on an account to add context. Notes are internal and not exposed to customers.

@@ -30,12 +30,13 @@ final as (
         cast(deleted_at as {{ dbt_utils.type_timestamp() }}) as deleted_at,
         email,  
         first_name,
+        row_number() over (partition by id order by updated_at desc) = 1 as is_most_recent_record,
         tax_exempt as is_tax_exempt, 
         last_name,
         state, 
         username, 
         vat_number
-    from fields
+   from fields
 )
 
 select *

@@ -37,6 +37,7 @@ final as (
         cast(expires_at as {{ dbt_utils.type_timestamp() }}) as expires_at,
         auto_renew as has_auto_renew,
         started_with_gift as has_started_with_gift,
+        row_number() over (partition by id order by current_period_started_at desc) = 1 as is_most_recent_record,
         object,
         cast(paused_at as {{ dbt_utils.type_timestamp() }}) as paused_at, 
         plan_id,
