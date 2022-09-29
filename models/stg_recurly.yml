@@ -591,6 +591,8 @@ models:
           Unit for the plan's billing interval.
           Default: "months"
           Enum: "days", "months"
+      - name: is_tax_exempt
+        description: true exempts tax on the plan, false applies tax on the plan.
       - name: name
         description: This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
       - name: setup_fee_accounting_code
@@ -603,8 +605,7 @@ models:
         description: >
           Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. 
           If you are using Recurly’s EU VAT feature you can use unknown, physical, or digital.
-      - name: tax_exempt
-        description: true exempts tax on the plan, false applies tax on the plan.
+
       - name: total_billing_cycles
         description: >
           Automatically terminate subscriptions after a defined number of billing cycles. 

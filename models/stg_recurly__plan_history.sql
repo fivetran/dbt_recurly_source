@@ -29,11 +29,11 @@ final as (
         auto_renew as has_auto_renew,
         interval_length,
         interval_unit,
+        tax_exempt as is_tax_exempt,
         name,
         setup_fee_accounting_code,
         state,
         tax_code,
-        tax_exempt,
         total_billing_cycles,
         trial_length,
         trial_unit
