@@ -234,6 +234,8 @@ sources:
           A history of outstanding credit balance to pay an invoice, 
           but does include the record of write-offs, credit balance removals, 
           and credit payments later refunded as cash transaction.
+        config: 
+          enabled: "{{ var('recurly__using_credit_payment_history', true) }}"
         columns:
           - name: id 
             description: Unique identifier for the credit payment.
@@ -624,11 +626,11 @@ sources:
               Default: "months"
               Enum: "days", "months"
 
-
-
       - name: subscription_add_on_history
         identifier: "{{ var('subscription_add_on_history_identifier', 'subscription_add_on_history') }}"
         description: History of subscription add-ons to a particular plan. 
+        config: 
+          enabled: "{{ var('recurly__using_subscription_add_on_history', true) }}"
         columns:
           - name: id
             description: Unique identifier for subscription add-on. 
@@ -652,6 +654,8 @@ sources:
       - name: subscription_change_history
         identifier: "{{ var('subscription_change_history_identifier', 'subscription_change_history') }}"
         description: History of subscription changes, particularly upgrades and downgrades, but also changes to how subscription is invoiced.
+        config: 
+          enabled: "{{ var('recurly__using_subscription_change_history', true) }}"
         columns:
           - name: id 
             description: Unique identifier for subscription change.
@@ -668,9 +672,9 @@ sources:
           - name: plan_id
             description: Plan id associated with subscription change.
           - name: quantity
-            description: Quantity of subscriptions changed.
+            description: Quantity of subscriptions changed
           - name: subscription_id
-            description: Subscription ID associated with subscription change.
+            description: subscription ID associated with subscription change.
           - name: unit_amount
             description: Amount of one unit subscription.
           - name: updated_at

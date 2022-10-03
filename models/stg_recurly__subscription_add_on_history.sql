@@ -1,4 +1,3 @@
---To disable this model, set the using_subscription_add_on_history variable within your dbt_project.yml file to False.
 {{ config(enabled=var('recurly__using_subscription_add_on_history', true)) }}
 
 with base as (
