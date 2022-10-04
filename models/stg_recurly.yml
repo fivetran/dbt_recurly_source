@@ -768,9 +768,6 @@ models:
         description: >
           The current state of the subscription.
           Enum: "active", "canceled", "expired", "failed", "future", "paused"
-      - name: subscription_period
-        description: > 
-          The nth subscription defined by the time period set. Subscriptions start with month 0.
       - name: subtotal
         description: Estimated total, before tax.
       - name: total_billing_cycles
