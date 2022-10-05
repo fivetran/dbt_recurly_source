@@ -29,7 +29,7 @@ final as (
         currency,
         discount,
         cast(due_at as {{ dbt_utils.type_timestamp() }}) as due_at,
-        row_number() over (partition by id order by current_period_started_at desc) = 1 as is_most_recent_record,
+        row_number() over (partition by id order by updated_at desc) = 1 as is_most_recent_record,
         net_terms,
         number,
         origin,
