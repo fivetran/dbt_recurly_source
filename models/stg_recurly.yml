@@ -333,6 +333,8 @@ models:
         description: Total discounts applied to this invoice.
       - name: due_at
         description: Date invoice is due. This is the date the net terms are reached.
+      - name: is_most_recent_record
+        description: Is this the most recent invoice?
       - name: net_terms
         description: >
           Integer representing the number of days after an invoice's creation that the invoice will become past due. 
