@@ -46,7 +46,6 @@ final as (
         remaining_pause_cycles,
         renewal_billing_cycles,
         state,
-        row_number() over (partition by id order by current_period_started_at) - 1 as subscription_period,
         subtotal,
         total_billing_cycles,
         cast(trial_ends_at as {{ dbt_utils.type_timestamp() }}) as trial_ends_at,
