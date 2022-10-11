@@ -42,6 +42,8 @@ models:
           - not_null
       - name: updated_at
         description: When the account was last changed. Part of the PK
+      - name: account_country
+        description: Country account is associated with.
       - name: bill_to
         description: >
           An enumerable describing the billing behavior of the account, 
@@ -450,10 +452,14 @@ models:
         description: The discount applied to the line item.
       - name: ended_at
         description: If this date is provided, it indicates the end of a time range
+      - name: has_refund
+        description: Is the line item refunded? True if so, false if not.
       - name: invoice_id
         description: The invoice this line item belongs to, once the line item has been invoiced this will be the invoice's ID.
       - name: invoice_number
         description: The invoice this line item belongs to, once the line item has been invoiced this will be the invoice's number.
+      - name: is_taxable
+        description: Is the line item taxable? True if so, false if not.
       - name: origin
         description: A credit created from an original charge will have the value of the charge's origin.
       - name: original_line_item_invoice_id
@@ -480,8 +486,6 @@ models:
           For line items created prior to that date, the proration rate will be null, even if the line item was prorated.
       - name: quantity
         description: This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.
-      - name: refund
-        description: true if the line item is refund, false if it is not.
       - name: refunded_quantity
         description: For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).
       - name: started_at
@@ -499,8 +503,6 @@ models:
         description: Total before discounts and taxes (quantity * unit_amount).
       - name: tax
         description: The tax amount for the line item.
-      - name: taxable
-        description: true if the line item is taxable, false if it is not.
       - name: tax_code
         description: >
           Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. 
@@ -771,6 +773,8 @@ models:
         description: >
           The current state of the subscription.
           Enum: "active", "canceled", "expired", "failed", "future", "paused"
+      - name: subscription_period
+        description: The nth period of a subscription, usually tied to the number of invoices billed out.
       - name: subtotal
         description: Estimated total, before tax.
       - name: total_billing_cycles
@@ -802,7 +806,6 @@ models:
         description: The id of the transaction associated with the subscription.
         tests:
           - not_null 
-      - name: _fivetran_synced
       - name: subscription_id
         description: The id of the subscription associated with the transaction.
         tests:
