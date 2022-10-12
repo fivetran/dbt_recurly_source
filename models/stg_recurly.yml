@@ -42,8 +42,14 @@ models:
           - not_null
       - name: updated_at
         description: When the account was last changed. Part of the PK
+      - name: account_city
+        description: City in the world the account is associated with.
       - name: account_country
-        description: Country account is associated with.
+        description: Country in the world the account is associated with.
+      - name: account_postal_code
+        description: Postal code in the world the account is associated with.
+      - name: account_region
+        description: Region in the world the account is associated with (usually would be state if it was a U.S. account.)
       - name: bill_to
         description: >
           An enumerable describing the billing behavior of the account, 

@@ -21,7 +21,10 @@ final as (
     select
         id as account_id, 
         cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at, 
+        account_city,
         account_country, 
+        account_postal_code,
+        account_region,
         bill_to, 
         cc_emails, 
         code, 
@@ -36,6 +39,10 @@ final as (
         state, 
         username, 
         vat_number
+
+        --The below macro adds the fields defined within your accounts_pass_through_columns variable into the staging model
+        {{ fivetran_utils.fill_pass_through_columns('recurly_account_pass_through_columns') }}
+
    from fields
 )
 

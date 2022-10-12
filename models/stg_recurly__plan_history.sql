@@ -29,6 +29,7 @@ final as (
         auto_renew as has_auto_renew,
         interval_length,
         interval_unit,
+        row_number() over (partition by id order by updated_at desc) = 1 as is_most_recent_record,
         tax_exempt as is_tax_exempt,
         name,
         setup_fee_accounting_code,

@@ -17,8 +17,13 @@
     {"name": "company", "datatype": dbt_utils.type_string()},
     {"name": "vat_number", "datatype": dbt_utils.type_string()},
     {"name": "tax_exempt", "datatype": "boolean"},
+    {"name": "account_city", "datatype": dbt_utils.type_string()}
     {"name": "account_country", "datatype": dbt_utils.type_string()}
+    {"name": "account_postal_code", "datatype": dbt_utils.type_string()}
+    {"name": "account_region", "datatype": dbt_utils.type_string()}
 ] %}
+
+{{ fivetran_utils.add_pass_through_columns(columns, var('recurly_account_pass_through_columns')) }}
 
 {{ return(columns) }}
 

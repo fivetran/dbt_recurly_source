@@ -36,6 +36,8 @@
     {"name": "started_with_gift", "datatype": "boolean"} 
 ] %}
 
+{{ fivetran_utils.add_pass_through_columns(columns, var('recurly_subscription_pass_through_columns')) }}
+
 {{ return(columns) }}
 
 {% endmacro %}

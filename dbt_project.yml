@@ -24,6 +24,9 @@ vars:
     subscription_history: "{{ source('recurly', 'subscription_history') }}"
     transaction: "{{ source('recurly', 'transaction') }}"
     transaction_subscription: "{{ source('recurly', 'transaction_subscription') }}" 
+  recurly_account_pass_through_columns: []
+  recurly_subscription_pass_through_columns: []
+
 
 models:
   recurly_source:

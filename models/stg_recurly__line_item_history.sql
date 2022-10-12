@@ -34,6 +34,7 @@ final as (
         refund as has_refund,
         invoice_id,
         invoice_number,
+        row_number() over (partition by id order by updated_at desc) = 1 as is_most_recent_record,
         taxable as is_taxable,
         original_line_item_invoice_id,
         origin,

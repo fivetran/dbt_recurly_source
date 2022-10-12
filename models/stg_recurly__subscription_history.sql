@@ -52,6 +52,10 @@ final as (
         cast(trial_started_at as {{ dbt_utils.type_timestamp() }}) as trial_started_at,
         cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount,
         uuid
+
+        --The below macro adds the fields defined within your accounts_pass_through_columns variable into the staging model
+        {{ fivetran_utils.fill_pass_through_columns('recurly_subscription_pass_through_columns') }}
+
     from fields
 )
 
