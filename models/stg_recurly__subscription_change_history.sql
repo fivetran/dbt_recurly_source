@@ -31,7 +31,8 @@ final as (
         plan_id,
         quantity,
         subscription_id,
-        unit_amount
+        unit_amount,
+        row_number() over (partition by id order by updated_at desc) = 1 as is_most_recent_record
     from fields
 ) 
 
