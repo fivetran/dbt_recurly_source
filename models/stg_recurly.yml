@@ -342,7 +342,7 @@ models:
       - name: due_at
         description: Date invoice is due. This is the date the net terms are reached.
       - name: is_most_recent_record
-        description: Is this the most recent invoice?
+        description: Is this the most recent record of this invoice?
       - name: net_terms
         description: Terms of subscription.
         description: >
@@ -464,6 +464,8 @@ models:
         description: The invoice this line item belongs to, once the line item has been invoiced this will be the invoice's ID.
       - name: invoice_number
         description: The invoice this line item belongs to, once the line item has been invoiced this will be the invoice's number.
+      - name: is_most_recent_record
+        description: Is this the most recent record of this line item? 
       - name: is_taxable
         description: Is the line item taxable? True if so, false if not.
       - name: origin
@@ -602,6 +604,8 @@ models:
           Unit for the plan's billing interval.
           Default: "months"
           Enum: "days", "months"
+      - name: is_most_recent_record
+        description: Is this the most recent record of this plan?
       - name: is_tax_exempt
         description: true exempts tax on the plan, false applies tax on the plan.
       - name: name
@@ -756,7 +760,7 @@ models:
       - name: has_started_with_gift
         description: Did the subscription start with a gift? Was it paid with at least one gift card credit?
       - name: is_most_recent_record
-        description: Is this the most recent subscription?
+        description: Is this the most recent record of this subscription? 
       - name: object
         description: The object type, in this case only "subscription"  
       - name: paused_at
@@ -880,6 +884,8 @@ models:
         description: The values in this field will vary from gateway to gateway.
       - name: invoice_id
         description: The invoice_id this transaction belongs to.
+      - name: is_most_recent_record
+        description: Is this the most recent record of this transaction?
       - name: is_refunded
         description: Indicates if part or all of this transaction was refunded.
       - name: is_successful
