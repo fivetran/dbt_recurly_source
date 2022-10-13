@@ -33,7 +33,8 @@ final as (
         original_credit_payment_id,
         original_invoice_id,
         uuid,
-        cast(voided_at as {{ dbt_utils.type_timestamp() }}) as voided_at
+        cast(voided_at as {{ dbt_utils.type_timestamp() }}) as voided_at,
+        row_number() over (partition by id order by updated_at desc) = 1 as is_most_recent_record
     from fields
 ) 
 

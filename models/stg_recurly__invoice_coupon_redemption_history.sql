@@ -21,7 +21,8 @@ final as (
     select 
         coupon_redemption_id,
         invoice_id,
-        cast(invoice_updated_at as {{ dbt_utils.type_timestamp() }}) as invoice_updated_at
+        cast(invoice_updated_at as {{ dbt_utils.type_timestamp() }}) as invoice_updated_at,
+        row_number() over (partition by coupon_redemption_id order by invoice_updated_at desc) = 1 as is_most_recent_record
     from fields
 )
 

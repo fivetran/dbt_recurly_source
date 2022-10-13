@@ -23,7 +23,8 @@ final as (
         cast(account_updated_at as {{ dbt_utils.type_timestamp() }}) as account_updated_at,
         cast(amount as {{ dbt_utils.type_float() }}) as amount,
         currency,
-        past_due
+        past_due,
+        row_number() over (partition by account_id order by account_updated_at desc) = 1 as is_most_recent_record
     from fields
 )
 
