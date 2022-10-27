@@ -22,11 +22,11 @@ final as (
     
     select 
         id as subscription_change_id, 
-        cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at, 
-        cast(activate_at as {{ dbt_utils.type_timestamp() }}) as activate_at,
+        cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at, 
+        cast(activate_at as {{ dbt.type_timestamp() }}) as activate_at,
         activated, 
-        cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at,
-        cast(deleted_at as {{ dbt_utils.type_timestamp() }}) as deleted_at,
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
+        cast(deleted_at as {{ dbt.type_timestamp() }}) as deleted_at,
         object,
         plan_id,
         quantity,

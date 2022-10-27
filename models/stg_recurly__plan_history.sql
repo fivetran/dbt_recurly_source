@@ -20,11 +20,11 @@ final as (
 
     select
         id as plan_id, 
-        cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at,
+        cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at,
         accounting_code,
         code,
-        cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at,
-        cast(deleted_at as {{ dbt_utils.type_timestamp() }}) as deleted_at,
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
+        cast(deleted_at as {{ dbt.type_timestamp() }}) as deleted_at,
         description,
         auto_renew as has_auto_renew,
         interval_length,
