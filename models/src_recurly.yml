@@ -1,7 +1,7 @@
 version: 2
 sources:
   - name: recurly
-    database: "{% if target.type != 'spark'%}{{var ('recurly_database', target.database)}}{% endif %}"    
+    database: "{% if target.type != '!!!!!!! REPLACE 'spark' WITH 'spark','databricks' OR EQUIV !!!!!!!'%}{{var ('recurly_database', target.database)}}{% endif %}"    
     schema: "{{var ('recurly_schema', 'recurly')}}"
     
     loader: fivetran

@@ -20,9 +20,9 @@ final as (
 
     select  
         id as transaction_id,
-        cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at,
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
         account_id,
-        cast(amount as {{ dbt_utils.type_float() }}) as amount,
+        cast(amount as {{ dbt.type_float() }}) as amount,
         billing_city,
         billing_country,
         billing_first_name,
@@ -32,7 +32,7 @@ final as (
         billing_region,
         billing_street_1,
         billing_street_2,
-        cast(collected_at as {{ dbt_utils.type_timestamp() }}) as collected_at,
+        cast(collected_at as {{ dbt.type_timestamp() }}) as collected_at,
         collection_method,
         currency,
         customer_message,
@@ -58,7 +58,7 @@ final as (
         status_message,
         TYPE as type,
         uuid,
-        cast(voided_at as {{ dbt_utils.type_timestamp() }}) as voided_at,
+        cast(voided_at as {{ dbt.type_timestamp() }}) as voided_at,
         voided_by_invoice_id
     from fields
 )
