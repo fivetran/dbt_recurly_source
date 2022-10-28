@@ -29,7 +29,8 @@ final as (
         plan_add_on_id,
         quantity, 
         subscription_id, 
-        cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount
+        cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount,
+        row_number() over (partition by id order by updated_at desc) = 1 as is_most_recent_record
     from fields
 )
 

@@ -37,7 +37,8 @@ final as (
         payment_method_object,
         updated_by_country,
         updated_by_ip,
-        vat_number
+        vat_number,
+        row_number() over (partition by id order by updated_at desc) = 1 as is_most_recent_record
     from fields
 )
 

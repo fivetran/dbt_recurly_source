@@ -26,7 +26,8 @@ final as (
         message,
         object,
         user_email,
-        user_id
+        user_id,
+        row_number() over (partition by id order by account_updated_at desc) = 1 as is_most_recent_record
     from fields
 )
 
