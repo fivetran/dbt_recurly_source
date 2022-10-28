@@ -26,7 +26,6 @@ To use this dbt package, you must have the following:
 - At least one Fivetran Recurly connector syncing data into your destination. 
 - A **BigQuery**, **Snowflake**, **Redshift**, **PostgreSQL**, **Databricks** destination.
 
-
 ## Step 2: Install the package
 Include the following recurly_source package version in your `packages.yml` file.
 > TIP: Check [dbt Hub](https://hub.getdbt.com/) for the latest installation instructions or [read the dbt docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
