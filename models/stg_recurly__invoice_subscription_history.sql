@@ -20,7 +20,7 @@ final as (
 
     select
         invoice_id,
-        cast(invoice_updated_at as {{ dbt_utils.type_timestamp() }}) as invoice_updated_at,
+        cast(invoice_updated_at as {{ dbt.type_timestamp() }}) as invoice_updated_at,
         subscription_id,
         row_number() over (partition by invoice_id order by invoice_updated_at desc) = 1 as is_most_recent_record
     from fields

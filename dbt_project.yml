@@ -1,8 +1,7 @@
 name: "recurly_source"
-version: "0.1.0"
+version: "0.2.0"
 config-version: 2
-require-dbt-version: [">=1.0.0", "<2.0.0"]
-
+require-dbt-version: [">=1.3.0", "<2.0.0"]
 vars:
   recurly_source:
     account_acquisition_history: "{{ source('recurly', 'account_acquisition_history') }}"
@@ -23,15 +22,12 @@ vars:
     subscription_change_history: "{{ source('recurly', 'subscription_change_history') }}"
     subscription_history: "{{ source('recurly', 'subscription_history') }}"
     transaction: "{{ source('recurly', 'transaction') }}"
-    transaction_subscription: "{{ source('recurly', 'transaction_subscription') }}" 
+    transaction_subscription: "{{ source('recurly', 'transaction_subscription') }}"
   recurly_account_pass_through_columns: []
   recurly_subscription_pass_through_columns: []
-
-
 models:
   recurly_source:
     +schema: recurly_source
     materialized: table
     tmp:
       materialized: view
-
