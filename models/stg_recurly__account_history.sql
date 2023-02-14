@@ -20,7 +20,7 @@ final as (
 
     select
         id as account_id, 
-        cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at, 
+        cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at, 
         account_city,
         account_country, 
         account_postal_code,
@@ -29,8 +29,8 @@ final as (
         cc_emails, 
         code, 
         company, 
-        cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at,
-        cast(deleted_at as {{ dbt_utils.type_timestamp() }}) as deleted_at,
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
+        cast(deleted_at as {{ dbt.type_timestamp() }}) as deleted_at,
         email,  
         first_name,
         row_number() over (partition by id order by updated_at desc) = 1 as is_most_recent_record,

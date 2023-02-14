@@ -930,16 +930,3 @@ models:
         description: When the transaction was voided.
       - name: voided_by_invoice_id
         description: The invoice_id this transaction was voided.
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -21,8 +21,8 @@ final as (
     select 
         id as account_note_id, 
         account_id,
-        cast(account_updated_at as {{ dbt_utils.type_timestamp() }}) as account_updated_at,
-        cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at,
+        cast(account_updated_at as {{ dbt.type_timestamp() }}) as account_updated_at,
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
         message,
         object,
         user_email,

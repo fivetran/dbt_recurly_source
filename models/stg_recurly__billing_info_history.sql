@@ -19,7 +19,7 @@ final as (
 
     select
         id as billing_id, 
-        cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at,
+        cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at,
         account_id,
         billing_city,
         billing_country,
@@ -29,7 +29,7 @@ final as (
         billing_street_1,
         billing_street_2,
         company,
-        cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at, 
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at, 
         first_name,
         valid as is_valid,
         last_name,

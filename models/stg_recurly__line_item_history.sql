@@ -20,17 +20,17 @@ final as (
 
     select
         id as line_item_id, 
-        cast(updated_at as {{ dbt_utils.type_timestamp() }}) as updated_at,
+        cast(updated_at as {{ dbt.type_timestamp() }}) as updated_at,
         account_id,
         add_on_code,
         add_on_id,
-        cast(amount as {{ dbt_utils.type_float() }}) as amount,
-        cast(created_at as {{ dbt_utils.type_timestamp() }}) as created_at,
+        cast(amount as {{ dbt.type_float() }}) as amount,
+        cast(created_at as {{ dbt.type_timestamp() }}) as created_at,
         credit_applied,
         currency,
         description,
         discount,
-        cast(end_date as {{ dbt_utils.type_timestamp() }}) as ended_at,
+        cast(end_date as {{ dbt.type_timestamp() }}) as ended_at,
         refund as has_refund,
         invoice_id,
         invoice_number,
@@ -45,7 +45,7 @@ final as (
         proration_rate,
         quantity,
         refunded_quantity,
-        cast(start_date as {{ dbt_utils.type_timestamp() }}) as started_at,
+        cast(start_date as {{ dbt.type_timestamp() }}) as started_at,
         state,
         subscription_id,
         subtotal,
@@ -56,7 +56,7 @@ final as (
         tax_rate,
         tax_type,
         type,
-        cast(unit_amount as {{ dbt_utils.type_float() }}) as unit_amount,
+        cast(unit_amount as {{ dbt.type_float() }}) as unit_amount,
         uuid
     from fields
 )
