@@ -1,4 +1,5 @@
-# dbt_recurly_source v0.2.0
+# dbt_recurly_source v0.2.1
+ - Bug fix on test errors in issue [#9](https://github.com/fivetran/dbt_recurly_source/issues/9)
 
 ## 🚨 Breaking Changes 🚨:
 [PR #7](https://github.com/fivetran/dbt_recurly_source/pull/7) includes the following breaking changes:
