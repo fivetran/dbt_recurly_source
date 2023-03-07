@@ -8,6 +8,7 @@ models:
           combination_of_columns:
             - account_id
             - account_updated_at 
+            - currency
     
     columns:
       - name: account_id
@@ -546,6 +547,7 @@ models:
           combination_of_columns:
             - plan_id
             - plan_updated_at
+            - currency
 
     columns:
       - name: plan_id
