@@ -8,6 +8,7 @@ models:
           combination_of_columns:
             - account_id
             - account_updated_at 
+            - currency
     
     columns:
       - name: account_id
@@ -288,6 +289,7 @@ models:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
             - coupon_redemption_id
+            - invoice_id
             - invoice_updated_at 
     
     columns:
