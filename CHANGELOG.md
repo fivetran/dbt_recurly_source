@@ -1,5 +1,10 @@
-# dbt_recurly_source v0.2.1
- - Bug fix on test errors in issue [#9](https://github.com/fivetran/dbt_recurly_source/issues/9)
+# dbt_recurly_source v0.2.1 
+
+## 🪲 Bug Fixes 🔧
+- Added `invoice_id` to `unique_combination_of_columns` test on `stg_recurly__invoice_coupon_redemption_history` to handle cases where coupon redemptions are applied to multiple invoices. Modified relevant seed files to test these changes. [#11](https://github.com/fivetran/dbt_recurly_source/pull/11)
+- Added `currency` to `unique_combination_of_columns` tests on `stg_recurly__account_balance_history` and `stg_recurly__plan_currency_history` to account for plans and account balances that hold multiple currencies. Modified relevant seed files to test these changes. [#11](https://github.com/fivetran/dbt_recurly_source/pull/11)
+
+# dbt_recurly_source v0.2.0 
 
 ## 🚨 Breaking Changes 🚨:
 [PR #7](https://github.com/fivetran/dbt_recurly_source/pull/7) includes the following breaking changes:
