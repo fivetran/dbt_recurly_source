@@ -1,3 +1,9 @@
+# dbt_recurly_source v0.UPDATE.UPDATE
+
+ ## Under the Hood:
+
+- Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job.
+- Updated the pull request [templates](/.github).
 # dbt_recurly_source v0.2.1 
 ## 🪲 Bug Fixes 🔧
 - Added `invoice_id` to the `unique_combination_of_columns` test on `stg_recurly__invoice_coupon_redemption_history` to handle cases where coupon redemptions are applied to multiple invoices. Also modified relevant seed files to test these changes ([PR #11](https://github.com/fivetran/dbt_recurly_source/pull/11)).
