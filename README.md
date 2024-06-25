@@ -13,7 +13,7 @@
 # Recurly Source dbt package ([Docs](https://fivetran.github.io/dbt_recurly_source/))
 
 # 📣 What does this dbt package do?
-- Materializes [Recurly staging tables]((https://fivetran.github.io/dbt_recurly_source/#!/overview/github_source/models/?g_v=1)) which leverages data in the format described by [this ERD](https://fivetran.com/docs/applications/recurly#schemainformation). These staging tables clean, test, and prepare your Recurly data from [Fivetran's connector](https://fivetran.com/docs/applications/recurly) for analysis by doing the following:
+- Materializes [Recurly staging tables](https://fivetran.github.io/dbt_recurly_source/#!/overview/github_source/models/?g_v=1) which leverages data in the format described by [this ERD](https://fivetran.com/docs/applications/recurly#schemainformation). These staging tables clean, test, and prepare your Recurly data from [Fivetran's connector](https://fivetran.com/docs/applications/recurly) for analysis by doing the following:
   - Name columns for consistency across all packages and easier analysis.
   - Adds freshness tests to source data.
   - Adds column-level testing where applicable. For example,  all primary keys are tested for uniqueness and non-null values.
