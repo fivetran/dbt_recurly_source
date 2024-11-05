@@ -733,8 +733,6 @@ models:
         description: >
           Default: "automatic"
           Enum: "automatic", "manual"
-      - name: converted_at
-        description: When the subscription has converted from trial.
       - name: created_at
         description: When the subscription was created.
       - name: currency
@@ -760,8 +758,6 @@ models:
         description: >
           Whether the subscription renews at the end of its term.
           Default: true
-      - name: has_started_with_gift
-        description: Did the subscription start with a gift? Was it paid with at least one gift card credit?
       - name: is_most_recent_record
         description: Is this the most recent record of this subscription? 
       - name: object
