@@ -1,6 +1,15 @@
-# dbt_recurly_source v0.UPDATE.UPDATE
+# dbt_recurly_source v0.3.0
+[PR #16](https://github.com/fivetran/dbt_recurly_source/pull/16) introduces the following updates:
 
- ## Under the Hood:
+## Breaking Changes
+- Removed unused fields from `stg_recurly__subscription_history`:
+  - `converted_at`
+  - `has_started_with_gift`
+- These fields were removed since they are planned for future deprecation in the Fivetran Connector and are not utilized in the downstream transformation package.
+
+
+[PR #14](https://github.com/fivetran/dbt_recurly_source/pull/14) includes the following updates:
+## Under the Hood:
 - Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job.
 - Updated the pull request [templates](/.github).
 
