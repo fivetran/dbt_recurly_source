@@ -7,11 +7,9 @@
   - `has_started_with_gift`
 - These fields were removed since they are planned for future deprecation in the Fivetran Connector and are not utilized in the downstream transformation package.
 
-
-[PR #14](https://github.com/fivetran/dbt_recurly_source/pull/14) includes the following updates:
 ## Under the Hood:
-- Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job.
-- Updated the pull request [templates](/.github).
+- Incorporated the new `fivetran_utils.drop_schemas_automation` macro into the end of each Buildkite integration test job. [(#14)](https://github.com/fivetran/dbt_recurly_source/pull/14)
+- Updated the pull request templates. [(#14)](https://github.com/fivetran/dbt_recurly_source/pull/14)
 
 # dbt_recurly_source v0.2.1 
 ## 🪲 Bug Fixes 🔧
