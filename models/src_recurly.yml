@@ -761,8 +761,6 @@ sources:
               Defaults to the plan's total_billing_cycles.
           - name: shipping_address_id
             description: Unique id assigned to shipping address.
-          - name: started_with_gift
-            description: Did the subscription start with a gift? Was it paid with at least one gift card credit?
           - name: state
             description: >
               The current state of the subscription.

@@ -7,7 +7,6 @@
     {"name": "updated_at", "datatype": dbt.type_timestamp()},
     {"name": "activated_at", "datatype": dbt.type_timestamp()},
     {"name": "canceled_at", "datatype": dbt.type_timestamp()},
-    {"name": "converted_at", "datatype": dbt.type_timestamp()},
     {"name": "expires_at", "datatype": dbt.type_timestamp()},
     {"name": "account_id", "datatype": dbt.type_string()},
     {"name": "plan_id", "datatype": dbt.type_string()},
@@ -32,8 +31,7 @@
     {"name": "add_ons_total", "datatype": dbt.type_int()},
     {"name": "subtotal", "datatype": dbt.type_int()},
     {"name": "collection_method", "datatype": dbt.type_string()},
-    {"name": "expiration_reason", "datatype": dbt.type_string()},
-    {"name": "started_with_gift", "datatype": "boolean"} 
+    {"name": "expiration_reason", "datatype": dbt.type_string()}
 ] %}
 
 {{ fivetran_utils.add_pass_through_columns(columns, var('recurly_subscription_pass_through_columns')) }}
