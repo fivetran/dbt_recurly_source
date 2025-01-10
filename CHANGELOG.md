@@ -1,3 +1,8 @@
+# dbt_recurly_source version.version
+
+## Documentation
+- Corrected references to connectors and connections in the README. ([#18](https://github.com/fivetran/dbt_recurly_source/pull/18))
+
 # dbt_recurly_source v0.3.0
 [PR #16](https://github.com/fivetran/dbt_recurly_source/pull/16) introduces the following updates:
 
