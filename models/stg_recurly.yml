@@ -346,7 +346,6 @@ models:
       - name: is_most_recent_record
         description: Is this the most recent record of this invoice?
       - name: net_terms
-        description: Terms of subscription.
         description: >
           Integer representing the number of days after an invoice's creation that the invoice will become past due. 
           If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. 
