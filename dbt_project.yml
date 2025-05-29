@@ -28,6 +28,6 @@ vars:
 models:
   recurly_source:
     +schema: recurly_source
-    materialized: table
+    +materialized: table
     tmp:
-      materialized: view
+      +materialized: view
