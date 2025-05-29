@@ -1,7 +1,14 @@
-# dbt_recurly_source version.version
+# dbt_recurly_source v0.3.1
 
 ## Documentation
 - Corrected references to connectors and connections in the README. ([#18](https://github.com/fivetran/dbt_recurly_source/pull/18))
+
+## Under the Hood
+- Prepends `materialized` configs in the package's `dbt_project.yml` file with `+` to improve compatibility with the newer versions of dbt-core starting with v1.10.0. ([PR #19](https://github.com/fivetran/dbt_recurly_source/pull/19))
+- Updates the package maintainer pull request template. ([PR #20](https://github.com/fivetran/dbt_recurly_source/pull/20))
+
+## Contributors
+- [@b-per](https://github.com/b-per) ([PR #19](https://github.com/fivetran/dbt_recurly_source/pull/19))
 
 # dbt_recurly_source v0.3.0
 [PR #16](https://github.com/fivetran/dbt_recurly_source/pull/16) introduces the following updates:
