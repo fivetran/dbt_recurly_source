@@ -24,6 +24,7 @@ If you are using dbt Core < 1.9.6 and want to continue running Recurly freshness
 
 ## Under the Hood
 - Updates to ensure integration tests use latest version of dbt.
+
 # dbt_recurly_source v0.3.1
 
 This release introduces the following updates:
