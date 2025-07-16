@@ -30,6 +30,8 @@ dispatch:
     search_order: ['spark_utils', 'dbt_utils']
 
 seeds:
+  +docs:
+    show: False
   recurly_source_integration_tests:
     account_balance_history_data:
       +column_types: 
@@ -99,3 +101,5 @@ seeds:
 
 flags:
   send_anonymous_usage_stats: False
+
+  use_colors: True
